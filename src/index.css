@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base{
+  html,body, #root{
+    @apply h-full bg-backdrop text-white antialiased /* antialiased - Yazı tipini alt pikselin aksine piksel düzeyinde düzleştirir. Koyu arka planlarda açık renkli metinler için alt piksel oluşturmadan kenar yumuşatmaya geçiş, daha açık görünmesini sağlar.*/
+  }
+  #root{
+    @apply flex flex-col;
+  }
+  .main-container{
+    height: calc(100% - theme('spacing.24')); /*bottom bar arasında sayfaya göre aralık olusturur. 23
+    ,25*/
+    @apply flex;
+  }
+}
