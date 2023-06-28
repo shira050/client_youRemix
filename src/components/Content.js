@@ -12,6 +12,7 @@ import SubSection from './Content/CollectionContent/SubSection';
 import SignUp from './client_comps/signUp';
 import Profile from './client_comps/profile';
 import EditProfile from './client_comps/editProfile';
+import AddSong from './client_comps/addSong';
 
 function Content() {
   return (
@@ -46,6 +47,7 @@ function Content() {
         <Route path="/users/signUp" element={<SignUp />} />
         <Route path="/users/editProfile" element={<EditProfile />} />
         <Route path='/users/profile' element={<Profile />} />
+        <Route path='/songs/addSong' element={<AddSong />} />
 
         {/* <Route path="/test/ownHook" element={<MyHookComp />} />
         <Route path="/test/lazy1" element={<LazyLoading />} />
