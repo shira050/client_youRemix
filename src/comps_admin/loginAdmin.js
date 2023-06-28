@@ -21,7 +21,7 @@ export default function LoginAdmin() {
     try {
       let resp = await doApiMethod(url,"POST",bodyData);
         // לשמור את הטוקן
-        localStorage.setItem(,resp.data.token);
+        localStorage.setItem(TOKEN_NAME,resp.data.token);
         // לשגר לעמוד של רשימת המשתמשים
         nav("/admin/users")
       // console.log(resp.data)

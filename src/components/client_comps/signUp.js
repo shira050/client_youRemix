@@ -20,13 +20,9 @@ export default function Login() {
 
   const onSubForm = (bodyData) => {
     debugger
-    // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
     console.log(bodyData);
-    if (currentUser) {
-      doEditUserForm(bodyData);
-    } else{
+   
       doSignUpForm(bodyData);
-    }
   };
 
   const doSignUpForm = async (bodyData) => {
@@ -34,7 +30,7 @@ export default function Login() {
     let url = API_URL + "users";
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
-      alert("wellcome" + resp.data.firstName);
+      alert("wellcome " + resp.data.firstName);
 
       localStorage.setItem(USER, JSON.stringify(resp.data));
 
@@ -46,70 +42,10 @@ export default function Login() {
       alert("User or password worng, or service down");
     }
   };
-  const doEditUserForm = async (bodyData) => {
-    debugger
-    if (currentUser) {
-    let url = API_URL + "users/"+(currentUser._id);
-    try {
-      // bodyData.password=currentUser.password;
-      let resp = await doApiMethod(url, "PUT", bodyData);
-      alert("wellcome" + resp.data.firstName);
-
-      doApiInfo(); //TODO
-
-      console.log(resp.data);
-
-      nav("/");
-    } catch (err) {
-      console.log(err.response);
-      alert("something worng, or service down");
-    }
-  }
-  };
   
-  const doApiInfo = async () => {
-    let url = API_URL + "users/userInfo";
-    try {
-      let resp = await doApiGet(url);
-
-    localStorage.setItem(USER, JSON.stringify(resp.data));
-
-      console.log(resp.data);
-    } catch (err) {
-      console.log(err.response);
-      alert("User info get worng, or service down");
-    }
-  };
-
+  
+  
  
-
-  // let firstNameRef = register("firstName", {
-  //   required: true,
-  //   minLength: 2,
-  //   pattern: /^[a-z ,.'-]+$/i,
-  // });
-  // let lastNameRef = register("lastName", {
-  //   required: true,
-  //   minLength: 2,
-  //   pattern: /^[a-z ,.'-]+$/i,
-  // });
-  // let imageRef = register("avatar");
-  // let emailRef = register("email", {
-  //   required: true,
-  //   pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-  // });
-
-  // let passwordRef = register("password", { required: true, minLength: 6 });
-
-
-  // const [user,setUser]=useState({
-  //   firstName: '',
-  //   lastName: '',
-  //   avatar: '',
-  //   email: '',
-  //   password: ''
-  // });
-
 
 
   useEffect(() => {
@@ -139,7 +75,6 @@ export default function Login() {
   type="text"
   className="form-control"
   value={getValues("firstName")}
-  // onChange={(e) => setValue("firstName", e.target.value)}
 />
 {errors.firstName && (
   <div className="text-danger">Enter a valid first name</div>
@@ -155,7 +90,6 @@ export default function Login() {
   type="text"
   className="form-control"
   value={getValues("lastName")}
-  // onChange={(e) => setValue("lastName", e.target.value)}
 />
 {errors.lastName && (
   <div className="text-danger">Enter a valid last name</div>
@@ -170,7 +104,6 @@ export default function Login() {
   type="text"
   className="form-control"
   value={getValues("email")}
-  // onChange={(e) => setValue("email", e.target.value)}
 />
 {errors.email && <div className="text-danger">Enter a valid email</div>}
 
@@ -180,7 +113,6 @@ export default function Login() {
   type="text"
   className="form-control"
   value={getValues("avatar")}
-  // onChange={(e) => setValue("avatar", e.target.value)}
 />
 {errors.avatar && <div className="text-danger">Enter a valid image</div>}
 
@@ -192,7 +124,6 @@ export default function Login() {
   type="password"
   className="form-control"
   value={getValues("password")}
-  // onChange={(e) => setValue("password", e.target.value)}
 />
 {errors.password && (
   <div className="text-danger">Enter at least 6 characters for the password</div>

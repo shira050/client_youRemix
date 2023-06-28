@@ -34,7 +34,7 @@ function Auth() {
     }
   }, [localStorage[USER]]);
   return (
-    <Menu as="nav" className={"relative"}>
+    <Menu style={{ zIndex: '999' }} as="nav" className={"relative"}>
       {({ open }) => (
         <>
           <Menu.Button
@@ -102,29 +102,47 @@ function Auth() {
                       </Link>
                     )}
                   </Menu.Item>
-                  </>
-                  ) : (
-                  <Link
-                    className={`h-10 flex items-center px-2 text-sm rounded ${"bg-white bg-opacity-10"}`}
-                    to="users/login"
-                  >
-                    Log in
-                  </Link>
 
-                 
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        className={`h-10 flex items-center px-2 text-sm rounded ${active && "bg-white bg-opacity-10"
+                          }`}
+                        to="users/editProfile"
+                      >
+                        Edit Profile
+                      </Link>
+                    )}
+                  </Menu.Item>
+                </>
+
+              ) : (
+                <>
+                  <Menu.Item>
+
+                    <Link
+                      className={`h-10 flex items-center px-2 text-sm rounded ${"bg-white bg-opacity-10"}`}
+                      to="users/login"
+                    >
+                      Log in
+                    </Link>
+                  </Menu.Item>
+                  <Menu.Item>
+                    {({ active }) => (
+                      <Link
+                        className={`h-10 flex items-center px-2 text-sm rounded ${active && "bg-white bg-opacity-10"
+                          }`}
+                        to="users/signUp"
+                      >
+                        Sign Up
+                      </Link>
+                    )}
+                  </Menu.Item>
+
+                </>
               )}
-                </Menu.Item>
-              <Menu.Item>
-                {({ active }) => (
-                  <Link
-                    className={`h-10 flex items-center px-2 text-sm rounded ${active && "bg-white bg-opacity-10"
-                      }`}
-                    to="users/signUp"
-                  >
-                    Sign Up
-                  </Link>
-                )}
-              </Menu.Item>
+            </Menu.Item>
+
           </Menu.Items>
         </>
       )}

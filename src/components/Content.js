@@ -11,6 +11,7 @@ import Collection from '../views/Collection';
 import SubSection from './Content/CollectionContent/SubSection';
 import SignUp from './client_comps/signUp';
 import Profile from './client_comps/profile';
+import EditProfile from './client_comps/editProfile';
 
 function Content() {
   return (
@@ -43,6 +44,7 @@ function Content() {
         {/* TEST ROUTES */}
         <Route path="/users/login" element={<Login />} />
         <Route path="/users/signUp" element={<SignUp />} />
+        <Route path="/users/editProfile" element={<EditProfile />} />
         <Route path='/users/profile' element={<Profile />} />
 
         {/* <Route path="/test/ownHook" element={<MyHookComp />} />
