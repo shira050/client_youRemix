@@ -4,10 +4,17 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { doApiMethod, API_URL, USER } from "../../services/apiService";
 import { doApiGet } from "../../services/apiService";
+import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
+import { useSelector,useDispatch } from "react-redux";
 
 
 export default function EditProfile() {
-    const currentUser = JSON.parse(localStorage.getItem(USER));
+    const dispatch=useDispatch();
+
+    const { currentUser } = useSelector((state) => state.user);
+
+
+    // const currentUser = JSON.parse(localStorage.getItem(USER));
     const {
         register,
         handleSubmit,
@@ -53,7 +60,10 @@ export default function EditProfile() {
         try {
             let resp = await doApiGet(url);
 
-            localStorage.setItem(USER, JSON.stringify(resp.data));
+            // localStorage.setItem(USER, JSON.stringify(resp.data));
+            dispatch(loginSuccess(resp.data));
+
+
 
             console.log(resp.data);
         } catch (err) {

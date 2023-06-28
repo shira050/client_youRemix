@@ -3,12 +3,18 @@ import { Menu } from "@headlessui/react";
 import { Icon } from "../../icons/Icons";
 import { Link, useNavigate } from "react-router-dom";
 import { TOKEN_NAME, USER } from "../../services/apiService";
+import { logout } from "../../store/redax/featchers.js/userSlice";
+import { useSelector,useDispatch } from "react-redux";
 
 function Auth() {
-  let currentUser;
-  if (localStorage[USER]) {
-    currentUser = JSON.parse(localStorage[USER]);
-  }
+  const { currentUser } = useSelector((state) => state.user);
+  const dispatch=useDispatch();
+
+
+  // let currentUser;
+  // if (localStorage[USER]) {
+  //   currentUser = JSON.parse(localStorage[USER]);
+  // }
   const defaultUser = {
     firstName: "User",
     avatar:
@@ -21,18 +27,16 @@ function Auth() {
     // מחיקת טוקן
     if (window.confirm("Are you sure you want to logout ?")) {
       localStorage.removeItem(TOKEN_NAME);//TODO-כשנמחק אוטומטית למחוק גם את היוזר
-      localStorage.removeItem(USER);
+      // localStorage.removeItem(USER);
+      dispatch(logout());
+
       // להעביר לעמוד לוג אין
       nav("/");
     }
   };
   useEffect(() => {
-    {
-      localStorage[USER]
-        ? setUser(JSON.parse(localStorage[USER]))
-        : setUser(defaultUser);
-    }
-  }, [localStorage[USER]]);
+    currentUser ? setUser(currentUser) : setUser(defaultUser);
+  }, [currentUser]);
   return (
     <Menu style={{ zIndex: '999' }} as="nav" className={"relative"}>
       {({ open }) => (
@@ -56,18 +60,6 @@ function Auth() {
               "absolute p-1 top-full right-0 w-48 bg-active rounded translate-y-2"
             }
           >
-            {/* <Menu.Item>
-              {({ active }) => (
-                <Link
-                  className={`h-10 flex items-center px-2 text-sm rounded ${
-                    active && "bg-white bg-opacity-10"
-                  }`}
-                  to="users/login"
-                >
-                  Log in
-                </Link>
-              )}
-            </Menu.Item> */}
             <Menu.Item>
               {({ active }) => (
                 <Link

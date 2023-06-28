@@ -2,8 +2,12 @@ import React, { useRef } from "react";
 import { Icon } from "../../icons/Icons";
 import { API_URL, USER, doApiGet } from "../../services/apiService";
 import { useNavigate } from "react-router-dom";
+import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
+import { useDispatch } from "react-redux";
+
 
 function Search() {
+  const dispatch=useDispatch();
   const searchRef = useRef();
 
   const nav = useNavigate();
@@ -17,7 +21,10 @@ function Search() {
       console.log(resp.data);
       if (resp.data.length > 0) {
         alert("good");
-        localStorage.setItem(USER, JSON.stringify(resp.data));
+
+        // localStorage.setItem(USER, JSON.stringify(resp.data));
+        dispatch(loginSuccess(resp.data));
+
       } else nav("songs/addSong");
     } catch (err) {
       console.log(err.response);

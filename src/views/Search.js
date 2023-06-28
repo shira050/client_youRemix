@@ -5,63 +5,69 @@ import ListenedCategory from '../components/Content/SearchContent/ListenedCatego
 import ScrollContainer from 'react-indiana-drag-scroll'
 import { Icon } from '../icons/Icons'
 import { doApiMethod, API_URL, USER, doApiGet } from "../services/apiService";
+import { useSelector } from 'react-redux'
 
 
 function Search() {
+  const { currentUser } = useSelector((state) => state.user);
   const favRef = useRef();
-
   const [prev, setPrev] = useState(false);
   const [next, setNext] = useState(false);
   const [mostListened,setMostListened]=useState([]);
   const [categories,setCategories]=useState([]);
-    const doApiCategories = async () => {
+  const [loading, setLoading] = useState(true);
+
+  const doApiCategories = async () => {
     let url = API_URL + "categories";
     try {
       let resp = await doApiGet(url);
-      setCategories(resp.data)
-
-      console.log(resp.data);
+      setCategories(resp.data);
+      setLoading(false);
     } catch (err) {
       console.log(err.response);
-      alert("categories worng, or service down");
+      alert("Categories wrong or service down");
+      setLoading(false);
     }
   };
-
+ 
   useEffect(() => {
-   
     doApiCategories();
-    const userLocalStorage = localStorage.getItem(USER);
 
-    if (userLocalStorage) {
-      const parsedUser = JSON.parse(userLocalStorage);
-      setMostListened(parsedUser.lastSearch);
-    }    if (favRef.current) {
-
-      const scrollHandle = () => {
-        const isEnd = favRef.current.scrollLeft + favRef.current.offsetWidth + 0.20001220703125 === favRef.current.scrollWidth
-        // 688+ 1136 === 1824
-
-        const isFirst = favRef.current.scrollLeft === 0
-
-        setPrev(!isFirst)
-        setNext(!isEnd)
-      }
-      scrollHandle()
-      favRef.current.addEventListener('scroll', scrollHandle)
-
-      return () => {
-        favRef?.current?.removeEventListener('scroll', scrollHandle)
-      }
-
+    if (currentUser) {
+      setMostListened(currentUser.lastSearch);
     }
-  }, [])
+
+    const scrollHandle = () => {
+      const isEnd =
+        favRef.current.scrollLeft + favRef.current.offsetWidth + 0.20001220703125 ===
+        favRef.current.scrollWidth;
+      const isFirst = favRef.current.scrollLeft === 0;
+
+      setPrev(!isFirst);
+      setNext(!isEnd);
+    };
+
+    if (favRef.current) {
+      favRef.current.addEventListener("scroll", scrollHandle);
+    }
+
+    return () => {
+      if (favRef.current) {
+        favRef.current.removeEventListener("scroll", scrollHandle);
+      }
+    };
+  }, [currentUser]);
 
   const scrollForward = () => {
-    favRef.current.scrollLeft += favRef.current.offsetWidth - 300
-  }
+    favRef.current.scrollLeft += favRef.current.offsetWidth - 300;
+  };
 
   const scrollBackward = () => {
-    favRef.current.scrollLeft -= favRef.current.offsetWidth - 300
+    favRef.current.scrollLeft -= favRef.current.offsetWidth - 300;
+  };
+
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading state while fetching the data
   }
 
   return (

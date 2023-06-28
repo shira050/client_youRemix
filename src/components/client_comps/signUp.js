@@ -4,10 +4,16 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { doApiMethod, API_URL, USER } from "../../services/apiService";
 import { doApiGet } from "../../services/apiService";
+import { useDispatch, useSelector } from "react-redux";
+import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
 
 
 export default function Login() {
-  const currentUser = JSON.parse(localStorage.getItem(USER));
+  const dispatch=useDispatch();
+  // const currentUser = JSON.parse(localStorage.getItem(USER));
+  const { currentUser } = useSelector((state) => state.user);
+
+
   const {
     register,
     handleSubmit,
@@ -32,7 +38,10 @@ export default function Login() {
       let resp = await doApiMethod(url, "POST", bodyData);
       alert("wellcome " + resp.data.firstName);
 
-      localStorage.setItem(USER, JSON.stringify(resp.data));
+      // localStorage.setItem(USER, JSON.stringify(resp.data));
+      dispatch(loginSuccess(resp.data));
+
+
 
       console.log(resp.data);
 

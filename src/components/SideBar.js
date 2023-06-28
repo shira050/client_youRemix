@@ -11,7 +11,9 @@ import SidebarCover from './SideBar/SidebarCover';
 
 function SideBar() {
 
-  const sidebar = useSelector((state) => state.player.sidebar);
+  const { sidebar } = useSelector((state) => state.player.sidebar);
+  const { currentUser } = useSelector((state) => state.user);
+  console.log(currentUser,"cur");
 
   return (
     <aside className='w-60 pt-6 flex flex-shrink-0 flex-col bg-black'>
@@ -25,11 +27,11 @@ function SideBar() {
       <nav className='mt-6'>
         <ul>
           <li>
-            <NavLink to={'#'} className='py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white'>
+            <NavLink to='/songs/addSong' className='py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white'>
               <span className='w-6 h-6 flex items-center justify-center mr-4 bg-white bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
                 <Icon name="plus" size={12} />
               </span>
-add new song to Playlist
+              add new song to Playlist
             </NavLink>
           </li>
           <li>
@@ -37,8 +39,19 @@ add new song to Playlist
               <span className='w-6 h-6 flex items-center justify-center mr-4 bg-gradient-to-br from-purple-700 text-white to-blue-300 rounded-sm opacity-60 group-hover:opacity-100'>
                 <Icon name="heartFilled" size={12} />
               </span>
-my favorites            </NavLink>
+              my favorites
+            </NavLink>
           </li>
+          {(currentUser&& currentUser.role.toLowerCase() == 'admin' )&&
+            <li>
+              <NavLink to='/admin/users' className='py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white'>
+                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-white bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
+                  <Icon name="user" size={12} />
+                </span>
+                all users
+              </NavLink>
+            </li>
+          }
         </ul>
 
       </nav>

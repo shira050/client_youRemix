@@ -9,6 +9,8 @@ import {
   USER,
   doApiGet,
 } from "../../services/apiService";
+import { useDispatch } from "react-redux";
+import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
 
 export default function Login() {
   const {
@@ -32,6 +34,7 @@ export default function Login() {
       let resp = await doApiMethod(url, "POST", bodyData);
       // לשמור את הטוקן
       localStorage.setItem(TOKEN_NAME, resp.data.your_token);
+
       // לשגר לעמוד של רשימת המשתמשים
       //   nav("/admin/users");
       console.log(resp.data);
@@ -43,13 +46,14 @@ export default function Login() {
       alert("User or password worng, or service down");
     }
   };
-
+const dispatch=useDispatch();
   const doApiInfo = async () => {
     let url = API_URL + "users/userInfo";
     try {
       let resp = await doApiGet(url);
 
-      localStorage.setItem(USER, JSON.stringify(resp.data));
+      // localStorage.setItem(USER, JSON.stringify(resp.data));
+      dispatch(loginSuccess(resp.data));
 
       console.log(resp.data);
     } catch (err) {

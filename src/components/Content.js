@@ -13,6 +13,7 @@ import SignUp from './client_comps/signUp';
 import Profile from './client_comps/profile';
 import EditProfile from './client_comps/editProfile';
 import AddSong from './client_comps/addSong';
+import UsersList from '../comps_admin/showUsers';
 
 function Content() {
   return (
@@ -30,8 +31,9 @@ function Content() {
           </Route> */}
         </Routes>
         <Routes>
-        {/* <Route path="/admin/*" element={<HeaderAdmin />} />
-        <Route path="/test/*" element={<HeaderTest />} />
+         <Route path="/admin/users" element={<UsersList />} />
+         {/* <Route path="/admin/*" element={<HeaderAdmin />} /> */}
+        {/*<Route path="/test/*" element={<HeaderTest />} />
         <Route path="/*" element={<ClientNav />} /> */}
       </Routes>
       <Routes>
