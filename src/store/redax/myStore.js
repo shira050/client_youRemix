@@ -46,12 +46,6 @@
 // export const persistor = persistStore(store)
 
 
-
-
-
-
-
-
 import { configureStore } from '@reduxjs/toolkit'
 import userSlice from './featchers.js/userSlice'
 import { categoriesSlice } from './featchers.js/categoriesSlice'

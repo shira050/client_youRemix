@@ -13,8 +13,8 @@ function Navbar() {
 
       <Navigations />
 
-      {pathname === '/search' && <Search />}
-      {pathname.includes('/collection',0)}
+      {/* {pathname === '/search' && <Search />} */}
+      {/* {pathname.includes('/collection',0)} */}
 
       <Auth />
     </nav>

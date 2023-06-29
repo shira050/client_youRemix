@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ComponentShelf from '../components/Content/HomeContent/ComponentShelf'
 import { items, items2, items3 } from '../static/data/songs'
 import { API_URL, doApiGet } from "../services/apiService";
+import Search from './Search';
 
 function Home() {
   const [itemsA, setItems] = useState([])
@@ -12,7 +13,6 @@ function Home() {
     console.log(url);
     try {
       let resp = await doApiGet(url);
-      console.log("yyyyy");
       console.log(resp.data);
       return resp.data;
     }
@@ -24,7 +24,8 @@ function Home() {
   useEffect(async () => {
     const item = await getMostListner()
     setItems(item)
-    console.log("dsdsdsdsd", item)
+
+    // console.log("dsdsdsdsd", item)
   }, [])
 
   // console.log(items)

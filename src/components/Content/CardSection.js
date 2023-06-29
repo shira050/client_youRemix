@@ -9,7 +9,7 @@ function CardSection({ item }) {
     const dispatch = useDispatch();
     const {current, playing, controls} = useSelector((state) => state.player)
 
-    const isCurrentPlaying = (current?.id === item.id && playing);
+    const isCurrentPlaying = (current?._id === item._id && playing);
 
     const roundedStyle = (item) => {
         switch (item) {
@@ -25,7 +25,7 @@ function CardSection({ item }) {
     }
 
     const updateCurrent = () => {
-        if(current.id === item.id){
+        if(current.id === item._id){
             if(playing){
                 controls.pause()
             }else{
@@ -40,7 +40,7 @@ function CardSection({ item }) {
 
     return (
         <Link
-            key={item.id}
+            key={item._id}
             to={'/'}
             className="bg-footer p-4 rounded-md flex-1 hover:bg-active group"
         >

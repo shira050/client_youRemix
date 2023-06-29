@@ -13,6 +13,7 @@ import { useDispatch } from "react-redux";
 import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
 
 export default function Login() {
+
   const {
     register,
     handleSubmit,
@@ -28,18 +29,14 @@ export default function Login() {
   };
 
   const doApiForm = async (bodyData) => {
-    debugger
+    
     let url = API_URL + "users/login";
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
       // לשמור את הטוקן
       localStorage.setItem(TOKEN_NAME, resp.data.your_token);
-
-      // לשגר לעמוד של רשימת המשתמשים
-      //   nav("/admin/users");
       console.log(resp.data);
 
-      nav("/");
       doApiInfo(); //TODO
     } catch (err) {
       console.log(err.response);
@@ -51,10 +48,10 @@ const dispatch=useDispatch();
     let url = API_URL + "users/userInfo";
     try {
       let resp = await doApiGet(url);
-
       // localStorage.setItem(USER, JSON.stringify(resp.data));
       dispatch(loginSuccess(resp.data));
 
+      nav('/')
       console.log(resp.data);
     } catch (err) {
       console.log(err.response);

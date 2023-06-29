@@ -10,7 +10,7 @@ function HeaderTitle({ title, seeAll = false , font , textDecoration}) {
                 </Link>
 
                 {seeAll && (
-                    <Link to={seeAll} className="text-xs font-semibold uppercase text-link font-sans tracking-widest hover:underline ">HEPSİNİ GÖR</Link>
+                    <Link to={seeAll} className="text-xs font-semibold uppercase text-link font-sans tracking-widest hover:underline ">SEE ALL</Link>
                 )}
             </div>
         </>

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MDBCol, MDBContainer, MDBRow, MDBCard, MDBCardText, MDBCardBody, MDBCardImage, MDBBtn, MDBTypography, MDBIcon, MDBCardTitle } from 'mdb-react-ui-kit';
 import { USER } from '../../services/apiService';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 export default function Profile() {
+  
   const { currentUser } = useSelector((state) => state.user);
-
   // const currentUser = JSON.parse(localStorage.getItem(USER));
+console.log("llll");
+
 
   if (currentUser) return (
     <div className="vh-100 " style={{}}>
@@ -32,17 +34,17 @@ export default function Profile() {
                     <div className="d-flex flex-row align-items-center mb-2">
                       <p className="mb-0 me-2">{currentUser.email} </p>
                     </div>
-                   
+
                   </div>
                   <Link to="/users/editProfile">  <MDBBtn outline color="dark" rounded size="sm" className="mx-1">Edit profile</MDBBtn></Link>
                 </div>
                 <hr />
-               {currentUser.lastSearch.length>0?
-                <MDBCardText>{currentUser.lastSearch.length} songs that I made</MDBCardText>
-                :
-                <MDBCardText>didnt make any songs yet...</MDBCardText>
+                {currentUser.lastSearch.length > 0 ?
+                  <MDBCardText>{currentUser.lastSearch.length} songs that I made</MDBCardText>
+                  :
+                  <MDBCardText>didnt make any songs yet...</MDBCardText>
 
-               }
+                }
                 <MDBBtn className='m-2' color="success" rounded block size="lg">
                   <MDBIcon far icon="clock me-2" /> SEE ALL
                 </MDBBtn>
