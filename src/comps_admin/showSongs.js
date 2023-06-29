@@ -3,7 +3,7 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { MDBBtn } from 'mdb-react-ui-kit';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
 import { API_URL } from '../services/apiService';
 import { doApiGet, doApiMethod } from '../services/apiService';
@@ -72,9 +72,9 @@ export default function SongsList() {
                             <td>{x.title}</td>
                             <td>{x.subtitle}</td>
                             <td>{x.category_id}</td>
-                            <td><img src={x.image}/></td>
+                            <td><img className='w-20' src={x.image}/></td>
                             <td>{x.role}</td>
-                            <td>{x.src}</td>
+                            <td> <Link to={x.src}>go to the song</Link></td>
                             <td onClick={() => { doDeleteCategory(x._id) }}>
                                 <span className='w-9 h-9 flex items-center justify-center bg-danger bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
                                     <Icon name="delete" size={20} />
