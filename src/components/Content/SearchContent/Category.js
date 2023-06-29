@@ -6,7 +6,7 @@ function Category({ category }) {
             style={{ '--color': category.backgroundColor }}
             className={"bg-[color:var(--color)] rounded-lg before:pt-[100%] before:block relative"}>
             <div className='absolute inset-0 overflow-hidden'>
-                <h3 className='text-white text-2xl tracking-tighter leading-7 font-bold p-4 break-words absolute'>
+                <h3 style={{zIndex:"999"}} className='text-white text-2xl tracking-tighter leading-7 font-bold p-4 break-words absolute'>
                     {category.title}
 
                 </h3>

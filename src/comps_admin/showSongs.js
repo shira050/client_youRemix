@@ -8,32 +8,30 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from '../services/apiService';
 import { doApiGet, doApiMethod } from '../services/apiService';
 import { Icon } from '../icons/Icons';
-// import { getUnV } from '../Redax/Users/UserThank';
 
-export default function ShowUsers() {
+export default function SongsList() {
 
 
-    const [userList, setUserList] = useState([])
+    const [categoriesList, setCategoriesList] = useState([])
     const nav = useNavigate();
 
     const doApiInfo = async () => {
-        let url = API_URL + "users/";
+        let url = API_URL + "songs/";
         try {
             let resp = await doApiGet(url);
 
-            setUserList(resp.data);
+            setCategoriesList(resp.data);
             console.log(resp.data);
         } catch (err) {
             console.log(err.response);
             alert("you have to be admin, or service down");
         }
     };
-    const doDeleteUser = async (_id) => {
+    const doDeleteCategory = async (_id) => {
         debugger
 
-        let url = API_URL + "users/" + _id;
+        let url = API_URL + "songs/" + _id;
         try {
-            // bodyData.password=currentUser.password;
             let resp = await doApiMethod(url, "PATCH");
             alert("נמחק בהצלחה");
             console.log(resp.data);
@@ -43,22 +41,7 @@ export default function ShowUsers() {
         }
 
     };
-    const doChangeRole = async (_id, role) => {
-        debugger
-        let newRole;
-        role == 'user' ? newRole = 'admin' : newRole = 'user';
-        let url = API_URL + "users/" + _id + "/" + newRole;
-        try {
-            // bodyData.password=currentUser.password;
-            let resp = await doApiMethod(url, "PATCH");
-            alert("סטטוס משתמש עודכן");
-            console.log(resp.data);
-        } catch (err) {
-            console.log(err.response);
-            alert("something worng, or service down");
-        }
-
-    };
+   
 
 
 
@@ -73,27 +56,29 @@ export default function ShowUsers() {
             <table class="table" style={{ margin: "40px 0", background: 'lightgray' }}>
                 <thead class="black white-text">
                     <tr>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Imge </th>
+                        <th scope="col">Role </th>
+                        <th scope="col">The Remix </th>
                         <th scope="col">Delete </th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    {userList.map((x) =>
+                    {categoriesList.map((x) =>
                         <tr>
-                            <td>{x.firstName}</td>
-                            <td>{x.lastName}</td>
-                            <td onClick={() => { doChangeRole(x._id, x.role.toLowerCase()) }}><MDBBtn style={{ minWidth:"30%" }} className='btn btn-success' rounded > {x.role.toUpperCase()} </MDBBtn></td>
-                            <td onClick={() => { doDeleteUser(x._id) }}>
-
+                            <td>{x.title}</td>
+                            <td>{x.subtitle}</td>
+                            <td>{x.category_id}</td>
+                            <td><img src={x.image}/></td>
+                            <td>{x.role}</td>
+                            <td>{x.src}</td>
+                            <td onClick={() => { doDeleteCategory(x._id) }}>
                                 <span className='w-9 h-9 flex items-center justify-center bg-danger bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
                                     <Icon name="delete" size={20} />
                                 </span>
-                                {/* <MDBBtn style={{ background: "red" }} rounded > <i class="fas fa-trash-alt"></i> </MDBBtn> */}
-
-
                             </td>
                         </tr>
                     )}

@@ -14,6 +14,9 @@ import Profile from './client_comps/profile';
 import EditProfile from './client_comps/editProfile';
 import AddSong from './client_comps/addSong';
 import UsersList from '../comps_admin/showUsers';
+import ShowCategories from '../comps_admin/showCategories';
+import CategoriesList from '../comps_admin/showCategories';
+import SongsList from '../comps_admin/showSongs';
 
 function Content() {
   return (
@@ -27,6 +30,8 @@ function Content() {
           <Route path='/search' element={<Search />} />
 
           <Route path="/admin/users" element={<UsersList />} />
+          <Route path="/admin/categories" element={<CategoriesList />} />
+          <Route path="/admin/songs" element={<SongsList />} />
 
           <Route path="/" element={<Home />} />
           <Route path="/*" element={<h2>Page 404</h2>} />
