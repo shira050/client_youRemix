@@ -29,8 +29,9 @@ export default function CategoriesList() {
 
     let url = API_URL + "categories/" + _id;
     try {
-      let resp = await doApiMethod(url, "PATCH");
+      let resp = await doApiMethod(url, "PATCH",{active:false});
       alert("נמחק בהצלחה");
+      doApiInfo();
       console.log(resp.data);
     } catch (err) {
       console.log(err.response);
@@ -60,7 +61,7 @@ export default function CategoriesList() {
 
   return (
     <>
-      <div className="text-center">
+      <div className="text-center align-items-center justify-center">
         <table
           class="table"
           style={{ margin: "40px 0", background: "lightgray" }}
@@ -75,7 +76,7 @@ export default function CategoriesList() {
 
           <tbody>
             {categoriesList.map((x) => (
-              <tr>
+              <tr className="">
                 <td>{x.title}</td>
                 <td>
                   <img className="h-20" src={x.cover} />
@@ -85,7 +86,7 @@ export default function CategoriesList() {
                     doDeleteCategory(x._id);
                   }}
                 >
-                  <span className="w-9 h-9 flex items-center justify-center bg-danger bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100">
+                  <span className="w-9 h-9 flex bg-danger bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100">
                     <Icon name="delete" size={20} />
                   </span>
                 </td>

@@ -36,6 +36,7 @@ export default function ShowUsers() {
             // bodyData.password=currentUser.password;
             let resp = await doApiMethod(url, "PATCH");
             alert("נמחק בהצלחה");
+            doApiInfo();
             console.log(resp.data);
         } catch (err) {
             console.log(err.response);
@@ -52,6 +53,7 @@ export default function ShowUsers() {
             // bodyData.password=currentUser.password;
             let resp = await doApiMethod(url, "PATCH");
             alert("סטטוס משתמש עודכן");
+            doApiInfo();
             console.log(resp.data);
         } catch (err) {
             console.log(err.response);

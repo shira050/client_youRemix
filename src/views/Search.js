@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { MDBBtn } from "mdb-react-ui-kit";
 
 function Search() {
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
   const favRef = useRef();
   const [prev, setPrev] = useState(false);
   const [next, setNext] = useState(false);
@@ -30,36 +30,63 @@ function Search() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
+   
     doApiCategories();
+    const userLocalStorage = localStorage.getItem(USER);
 
-    if (currentUser) {
-      setMostListened(currentUser.lastSearch);
-    }
+    if (userLocalStorage) {
+      const parsedUser = JSON.parse(userLocalStorage);
+      setMostListened(parsedUser.lastSearch);
+    }    if (favRef.current) {
 
-    const scrollHandle = () => {
-      const isEnd =
-        favRef.current.scrollLeft +
-          favRef.current.offsetWidth +
-          0.20001220703125 ===
-        favRef.current.scrollWidth;
-      const isFirst = favRef.current.scrollLeft === 0;
+      const scrollHandle = () => {
+        const isEnd = favRef.current.scrollLeft + favRef.current.offsetWidth + 0.20001220703125 === favRef.current.scrollWidth
+        // 688+ 1136 === 1824
 
-      setPrev(!isFirst);
-      setNext(!isEnd);
-    };
+        const isFirst = favRef.current.scrollLeft === 0
 
-    if (favRef.current) {
-      favRef.current.addEventListener("scroll", scrollHandle);
-    }
-
-    return () => {
-      if (favRef.current) {
-        favRef.current.removeEventListener("scroll", scrollHandle);
+        setPrev(!isFirst)
+        setNext(!isEnd)
       }
-    };
-  }, [currentUser]);
+      scrollHandle()
+      favRef.current.addEventListener('scroll', scrollHandle)
+
+      return () => {
+        favRef?.current?.removeEventListener('scroll', scrollHandle)
+      }
+
+    }
+  }, [])
+  // useEffect(() => {
+  //   doApiCategories();
+
+  //   if (currentUser) {
+  //     setMostListened(currentUser.lastSearch);
+  //   }
+  
+  //   const scrollHandle = () => {
+  //     const isEnd =
+  //       favRef.current.scrollLeft +
+  //         favRef.current.offsetWidth +
+  //         0.20001220703125 ===
+  //       favRef.current.scrollWidth;
+  //     const isFirst = favRef.current.scrollLeft === 0;
+
+  //     setPrev(!isFirst);
+  //     setNext(!isEnd);
+  //   };
+
+  //   if (favRef.current) {
+  //     favRef.current.addEventListener("scroll", scrollHandle);
+  //   }
+
+  //   return () => {
+  //     if (favRef.current) {
+  //       favRef.current.removeEventListener("scroll", scrollHandle);
+  //     }
+  //   };
+  // }, [currentUser]);
 
   const scrollForward = () => {
     favRef.current.scrollLeft += favRef.current.offsetWidth - 300;
@@ -82,7 +109,8 @@ function Search() {
           font={"bold"}
           textDecoration={"no-underline"}
         />
-        {currentUser != null ? (
+        {/* currentUser */}
+        {localStorage[USER] != null ? (
           <div className="relative">
             {prev && (
               <button
@@ -108,8 +136,19 @@ function Search() {
                 <ListenedCategory key={item._id} category={item} />
               ))}
             </ScrollContainer>
+         
+            {JSON.parse(localStorage[USER]).lastSearch.length==0 && 
+                  <i className="display-6">
+                  <p>you have not any favorite yet...</p>
+                </i>
+                }
           </div>
-        ) : (
+               
+
+        
+        ) 
+        :
+         (
           <i className="display-6">
             <p>you have not any favorite here</p>
             <p>you have to login</p>

@@ -7,14 +7,14 @@ import { logout } from "../../store/redax/featchers.js/userSlice";
 import { useSelector,useDispatch } from "react-redux";
 
 function Auth() {
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
   const dispatch=useDispatch();
 
 
-  // let currentUser;
-  // if (localStorage[USER]) {
-  //   currentUser = JSON.parse(localStorage[USER]);
-  // }
+  let currentUser;
+  if (localStorage[USER]) {
+    currentUser = JSON.parse(localStorage[USER]);
+  }
   const defaultUser = {
     firstName: "User",
     avatar:
@@ -27,18 +27,25 @@ function Auth() {
     // מחיקת טוקן
     if (window.confirm("Are you sure you want to logout ?")) {
       localStorage.removeItem(TOKEN_NAME);//TODO-כשנמחק אוטומטית למחוק גם את היוזר
-      // localStorage.removeItem(USER);
-      dispatch(logout());
+      localStorage.removeItem(USER);
+      // dispatch(logout());
 
       // להעביר לעמוד לוג אין
       nav("/");
     }
   };
+  // useEffect(() => {
+  //   currentUser ? setUser(currentUser) : setUser(defaultUser);
+  // }, [currentUser]);
   useEffect(() => {
-    currentUser ? setUser(currentUser) : setUser(defaultUser);
-  }, [currentUser]);
+    {
+      localStorage[USER]
+        ? setUser(JSON.parse(localStorage[USER]))
+        : setUser(defaultUser);
+    }
+  }, [localStorage[USER]]);
   return (
-    <Menu style={{ zIndex: '999' }} as="nav" className={"relative"}>
+    <Menu style={{ zIndex: '99999' }} as="nav" className={"relative"}>
       {({ open }) => (
         <>
           <Menu.Button

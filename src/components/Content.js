@@ -17,6 +17,7 @@ import UsersList from '../comps_admin/showUsers';
 import ShowCategories from '../comps_admin/showCategories';
 import CategoriesList from '../comps_admin/showCategories';
 import SongsList from '../comps_admin/showSongs';
+import CategorySongs from '../views/CategorySongs';
 
 function Content() {
   return (
@@ -40,6 +41,7 @@ function Content() {
           <Route path="/users/editProfile" element={<EditProfile />} />
           <Route path='/users/profile' element={<Profile />} />
           <Route path='/songs/addSong' element={<AddSong />} />
+          <Route path='/songs/CategorySongs/:_id/:name' element={<CategorySongs/>} />
 
 
         </Routes>

@@ -9,7 +9,7 @@ function Navbar() {
   const { pathname } = useLocation();
 
   return (
-    <nav className='h-[3.75rem] flex items-center justify-between px-8'>
+    <nav className='h-[3.75rem] flex items-center justify-between px-8 position-sticky'>
 
       <Navigations />
 

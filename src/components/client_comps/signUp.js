@@ -9,9 +9,9 @@ import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
 
 
 export default function Login() {
-  const dispatch=useDispatch();
-  // const currentUser = JSON.parse(localStorage.getItem(USER));
-  const { currentUser } = useSelector((state) => state.user);
+  // const dispatch=useDispatch();
+  const currentUser = JSON.parse(localStorage.getItem(USER));
+  // const { currentUser } = useSelector((state) => state.user);
 
 
   const {
@@ -38,8 +38,8 @@ export default function Login() {
       let resp = await doApiMethod(url, "POST", bodyData);
       alert("wellcome " + resp.data.firstName);
 
-      // localStorage.setItem(USER, JSON.stringify(resp.data));
-      dispatch(loginSuccess(resp.data));
+      localStorage.setItem(USER, JSON.stringify(resp.data));
+      // dispatch(loginSuccess(resp.data));
 
 
 

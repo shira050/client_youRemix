@@ -17,8 +17,8 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 export default function Profile() {
-  const { currentUser } = useSelector((state) => state.user);
-  // const currentUser = JSON.parse(localStorage.getItem(USER));
+  // const { currentUser } = useSelector((state) => state.user);
+  const currentUser = JSON.parse(localStorage.getItem(USER));
   console.log("llll");
 
   if (currentUser)

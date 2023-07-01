@@ -48,8 +48,8 @@ const dispatch=useDispatch();
     let url = API_URL + "users/userInfo";
     try {
       let resp = await doApiGet(url);
-      // localStorage.setItem(USER, JSON.stringify(resp.data));
-      dispatch(loginSuccess(resp.data));
+      localStorage.setItem(USER, JSON.stringify(resp.data));
+      // dispatch(loginSuccess(resp.data));
 
       nav('/')
       console.log(resp.data);

@@ -1,19 +1,18 @@
-import React, { useRef } from "react";
 import { Icon } from "../../icons/Icons";
 import { API_URL, USER, doApiGet } from "../../services/apiService";
 import { useNavigate } from "react-router-dom";
 import { loginSuccess } from "../../store/redax/featchers.js/userSlice";
 import { useDispatch } from "react-redux";
-
+import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 
 function Search() {
-  const dispatch=useDispatch();
-  const searchRef = useRef();
-
+  const dispatch = useDispatch();
+  const searchRef = useRef(null);
   const nav = useNavigate();
-
+  const [searchResults, setSearchResults] = useState([]);
   const doApiGetSong = async () => {
-    //console.log(searchRef.current.value);
+    // console.log(searchRef.current.value);
     let url = `${API_URL}songs/search/?s=${searchRef.current.value}`;
     console.log(url);
     try {
@@ -22,15 +21,48 @@ function Search() {
       if (resp.data.length > 0) {
         alert("good");
 
-        // localStorage.setItem(USER, JSON.stringify(resp.data));
-        dispatch(loginSuccess(resp.data));
-
+        localStorage.setItem(USER, JSON.stringify(resp.data));
+        // dispatch(loginSuccess(resp.data));
       } else nav("songs/addSong");
     } catch (err) {
       console.log(err.response);
-      alert("User or password worng, or service down");
+      alert("User or password wrong, or service down");
     }
   };
+
+  const handleInputChange = async () => {
+    const inputValue = searchRef.current.value;
+    if (inputValue.trim() === "") {
+      setSearchResults([]);
+      return;
+    }
+
+    const options = {
+      method: "GET",
+      url: "https://random-words5.p.rapidapi.com/getMultipleRandom",
+      params: { count: "3" },
+      headers: {
+        "X-RapidAPI-Key": "5de34e95a4mshb1f3a9b13bd7f20p1f736fjsn25057c5e3ed1",
+        "X-RapidAPI-Host": "random-words5.p.rapidapi.com",
+      },
+    };
+
+    try {
+      const response = await axios.request(options);
+      console.log(response.data);
+      setSearchResults(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const delayTimer = setTimeout(handleInputChange, 500);
+
+    return () => {
+      clearTimeout(delayTimer);
+    };
+  }, []);
 
   return (
     <div className="mr-auto ml-4 relative">
@@ -43,15 +75,29 @@ function Search() {
       </label>
       <input
         ref={searchRef}
-        type={"text"}
+        type="text"
         id="search-input"
         autoFocus={true}
-        className={
-          "h-10 max-w-full w-[22.75rem] py-1.5 px-12 bg-white rounded-full text-ellipsis placeholder-black/50 text-black text-sm font-semibold outline-none"
-        }
-        placeholder={"search RemixSong"}
+        className="h-10 max-w-full w-[22.75rem] py-1.5 px-12 bg-white rounded-full text-ellipsis placeholder-black/50 text-black text-sm font-semibold outline-none"
+        placeholder="Search RemixSong"
+        onChange={handleInputChange}
       />
-      {/* {errors.search && <div className="text-danger">Enter valid search</div>} */}
+      {/* Display search results */}
+      {searchResults.length > 0 && (
+        <ul className="absolute left-0 right-0 bg-dark rounded-b-lg shadow-md overflow-hidden mt-2">
+          {console.log("rrrs", searchResults)}
+          {searchResults.map((result) => (
+            <li
+              key={result.id}
+              className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
+            >
+              {result}
+
+              {/* {result.title} */}
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

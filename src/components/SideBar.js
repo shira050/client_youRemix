@@ -7,12 +7,15 @@ import DownloadApp from './SideBar/DownloadApp';
 import Menu from './SideBar/Menu';
 import Playlist from './SideBar/Playlist';
 import SidebarCover from './SideBar/SidebarCover';
+import { USER } from '../services/apiService';
 
 
 function SideBar() {
 
   const { sidebar } = useSelector((state) => state.player.sidebar);
-  const { currentUser } = useSelector((state) => state.user);
+  // const { currentUser } = useSelector((state) => state.user);
+  const currentUser=JSON.parse(localStorage[USER]);;
+  
   console.log(currentUser,"cur");
 
   return (
@@ -46,23 +49,23 @@ function SideBar() {
             <>
             <li>
               <NavLink to='/admin/categories' className='py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white'>
-                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-white bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
-                  <Icon name="user" size={12} />
+                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-warning bg-gradient bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
+                  <Icon name="category" size={12} />
                 </span>
                 all categories
               </NavLink>
             </li>
             <li>
               <NavLink to='/admin/songs' className='py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white'>
-                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-white bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
-                  <Icon name="user" size={12} />
+                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-success bg-gradient bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
+                  <Icon name="song" size={12} />
                 </span>
                 all songs
               </NavLink>
             </li>
             <li>
               <NavLink to='/admin/users' className='py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white'>
-                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-white bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
+                <span className='w-6 h-6 flex items-center justify-center mr-4 bg-info bg-gradient bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
                   <Icon name="user" size={12} />
                 </span>
                 all users

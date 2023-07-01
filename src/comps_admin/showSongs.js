@@ -1,4 +1,3 @@
-
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -8,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from '../services/apiService';
 import { doApiGet, doApiMethod } from '../services/apiService';
 import { Icon } from '../icons/Icons';
+import FeedbackStar from './feedbek';
 
 export default function SongsList() {
 
@@ -32,8 +32,9 @@ export default function SongsList() {
 
         let url = API_URL + "songs/" + _id;
         try {
-            let resp = await doApiMethod(url, "PATCH");
+            let resp = await doApiMethod(url, "PATCH",{active:false});
             alert("נמחק בהצלחה");
+            doApiInfo()
             console.log(resp.data);
         } catch (err) {
             console.log(err.response);
@@ -58,9 +59,9 @@ export default function SongsList() {
                     <tr>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Category</th>
+                        {/* <th scope="col">Category</th> */}
                         <th scope="col">Imge </th>
-                        <th scope="col">Role </th>
+                        <th scope="col">Rate </th>
                         <th scope="col">The Remix </th>
                         <th scope="col">Delete </th>
                     </tr>
@@ -68,13 +69,13 @@ export default function SongsList() {
 
                 <tbody>
                     {categoriesList.map((x) =>
-                        <tr>
+                        <tr >
                             <td>{x.title}</td>
-                            <td>{x.subtitle}</td>
-                            <td>{x.category_id}</td>
+                            <td >{x.subtitle}</td>
+                            {/* <td>{x.category_id}</td> */}
                             <td><img className='w-20' src={x.image}/></td>
-                            <td>{x.role}</td>
-                            <td> <Link to={x.src}>go to the song</Link></td>
+                            <td><FeedbackStar rating={x.rate} /></td>
+                            <td> <Link target="_blank" style={{textDecoration: 'underline'}} to={x.src}>click to the song</Link></td>
                             <td onClick={() => { doDeleteCategory(x._id) }}>
                                 <span className='w-9 h-9 flex items-center justify-center bg-danger bg-opacity-60 text-black rounded-sm group-hover:bg-opacity-100'>
                                     <Icon name="delete" size={20} />

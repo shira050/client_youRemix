@@ -10,9 +10,9 @@ import { useSelector, useDispatch } from "react-redux";
 export default function EditProfile() {
   const dispatch = useDispatch();
 
-  const { currentUser } = useSelector((state) => state.user);
+//   const { currentUser } = useSelector((state) => state.user);
 
-//   const currentUser = JSON.parse(localStorage.getItem(USER));
+  const currentUser = JSON.parse(localStorage.getItem(USER));
   const {
     register,
     handleSubmit,
@@ -53,8 +53,8 @@ export default function EditProfile() {
     try {
       let resp = await doApiGet(url);
 
-      // localStorage.setItem(USER, JSON.stringify(resp.data));
-      dispatch(loginSuccess(resp.data));
+      localStorage.setItem(USER, JSON.stringify(resp.data));
+    //   dispatch(loginSuccess(resp.data));
 
       console.log(resp.data);
     } catch (err) {
