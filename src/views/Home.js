@@ -57,19 +57,10 @@ function Home() {
 
       {mostSearch.length > 0 && (
         // <ComponentShelf title={"most listeners songs"} items={mostSearch} />
-        //   <>
-        //   <FeedbackStar rating={5}></FeedbackStar>
-        //   <ComponentShelf title={"Remixes With Highest Rating" } items={highestRating} />
-        //  </>
-        <ComponentShelf
-          title={
-            <>
-              <FeedbackStar rating={5} /> Remixes With Highest Rating
-            </>
-          }
-          items={highestRating}
-          rate={true}
-        />
+          <>
+          <ComponentShelf title={"Remixes With Highest Rating" } items={highestRating} rate={true} />
+         </>
+       
       )}
       {/* <ComponentShelf title={'Bring music to your home'} seeAll ="/vfmkvgkbn" items={items3}/> */}
 

@@ -17,11 +17,11 @@ function Search() {
     console.log(url);
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
       if (resp.data.length > 0) {
         alert("good");
-
-        localStorage.setItem(USER, JSON.stringify(resp.data));
+        // nav(`search/${encodeURIComponent(resp.data)}`);
+        nav('search/',resp.data)
+        // localStorage.setItem(USER, JSON.stringify(resp.data));
         // dispatch(loginSuccess(resp.data));
       } else nav("songs/addSong");
     } catch (err) {
@@ -105,7 +105,10 @@ function Search() {
             <li
               key={result.id}
               className="py-2 px-4 hover:bg-gray-100 hover:text-black cursor-pointer"
-              onClick={()=>{searchRef.current.value=result.data.name;handleInputChange()}}
+              onClick={() => {
+                searchRef.current.value = result.data.name;
+                handleInputChange();
+              }}
             >
               {result.data.name}
             </li>

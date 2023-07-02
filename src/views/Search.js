@@ -8,6 +8,8 @@ import { doApiMethod, API_URL, USER, doApiGet } from "../services/apiService";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { MDBBtn } from "mdb-react-ui-kit";
+import { useParams } from "react-router-dom/dist";
+import ComponentShelf from "../components/Content/HomeContent/ComponentShelf";
 
 function Search() {
   // const { currentUser } = useSelector((state) => state.user);
@@ -17,6 +19,8 @@ function Search() {
   const [mostListened, setMostListened] = useState([]);
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
+  // const [newArr, setNewArr] = useState([]);
+  const { arr } = useParams();
 
   const doApiCategories = async () => {
     let url = API_URL + "categories";
@@ -31,62 +35,36 @@ function Search() {
     }
   };
   useEffect(() => {
-   
     doApiCategories();
     const userLocalStorage = localStorage.getItem(USER);
-
+    // setNewArr({arr});
+    
     if (userLocalStorage) {
       const parsedUser = JSON.parse(userLocalStorage);
       setMostListened(parsedUser.lastSearch);
-    }    if (favRef.current) {
-
+    }
+    if (favRef.current) {
       const scrollHandle = () => {
-        const isEnd = favRef.current.scrollLeft + favRef.current.offsetWidth + 0.20001220703125 === favRef.current.scrollWidth
+        const isEnd =
+          favRef.current.scrollLeft +
+            favRef.current.offsetWidth +
+            0.20001220703125 ===
+          favRef.current.scrollWidth;
         // 688+ 1136 === 1824
 
-        const isFirst = favRef.current.scrollLeft === 0
+        const isFirst = favRef.current.scrollLeft === 0;
 
-        setPrev(!isFirst)
-        setNext(!isEnd)
-      }
-      scrollHandle()
-      favRef.current.addEventListener('scroll', scrollHandle)
+        setPrev(!isFirst);
+        setNext(!isEnd);
+      };
+      scrollHandle();
+      favRef.current.addEventListener("scroll", scrollHandle);
 
       return () => {
-        favRef?.current?.removeEventListener('scroll', scrollHandle)
-      }
-
+        favRef?.current?.removeEventListener("scroll", scrollHandle);
+      };
     }
-  }, [])
-  // useEffect(() => {
-  //   doApiCategories();
-
-  //   if (currentUser) {
-  //     setMostListened(currentUser.lastSearch);
-  //   }
-  
-  //   const scrollHandle = () => {
-  //     const isEnd =
-  //       favRef.current.scrollLeft +
-  //         favRef.current.offsetWidth +
-  //         0.20001220703125 ===
-  //       favRef.current.scrollWidth;
-  //     const isFirst = favRef.current.scrollLeft === 0;
-
-  //     setPrev(!isFirst);
-  //     setNext(!isEnd);
-  //   };
-
-  //   if (favRef.current) {
-  //     favRef.current.addEventListener("scroll", scrollHandle);
-  //   }
-
-  //   return () => {
-  //     if (favRef.current) {
-  //       favRef.current.removeEventListener("scroll", scrollHandle);
-  //     }
-  //   };
-  // }, [currentUser]);
+  }, []);
 
   const scrollForward = () => {
     favRef.current.scrollLeft += favRef.current.offsetWidth - 300;
@@ -102,6 +80,9 @@ function Search() {
 
   return (
     <>
+      { arr.length > 0 && console.log(arr)&&(
+        <ComponentShelf title={"your search"} items={arr} />
+      )}
       <section className="mb-8">
         <HeaderTitle
           title={"Favorite Genres"}
@@ -136,23 +117,21 @@ function Search() {
                 <ListenedCategory key={item._id} category={item} />
               ))}
             </ScrollContainer>
-         
-            {JSON.parse(localStorage[USER]).lastSearch.length==0 && 
-                  <i className="display-6">
-                  <p>you have not any favorite yet...</p>
-                </i>
-                }
-          </div>
-               
 
-        
-        ) 
-        :
-         (
+            {JSON.parse(localStorage[USER]).lastSearch.length == 0 && (
+              <i className="display-6">
+                <p>you have not any favorite yet...</p>
+              </i>
+            )}
+          </div>
+        ) : (
           <i className="display-6">
             <p>you have not any favorite here</p>
             <p>you have to login</p>
-            <Link to='/users/login'> <MDBBtn className="rounded btn-success"> Login</MDBBtn></Link>
+            <Link to="/users/login">
+              {" "}
+              <MDBBtn className="rounded btn-success"> Login</MDBBtn>
+            </Link>
           </i>
         )}
       </section>

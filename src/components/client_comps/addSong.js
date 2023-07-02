@@ -8,6 +8,7 @@ import {
   USER,
   doApiGet,
 } from "../../services/apiService";
+import UploadTest from "../uploadTest";
 
 export default function AddSong() {
   const [categories, setCategories] = useState([]);
@@ -116,15 +117,16 @@ export default function AddSong() {
           placeholder="enter the source song's route"
         />
         {errors.src && <div className="text-danger">Enter a valid src</div>}
-        <input
+        {/* <input
           {...imageRef}
           type="text"
           className="form-control"
           placeholder="enter a source for an iamge"
         />
-        {errors.image && <div className="text-danger">Enter a valid image</div>}
+        {errors.image && <div className="text-danger">Enter a valid image</div>} */}
+        <UploadTest  {...imageRef} ></UploadTest>
 
-        <button type="submit" className="btn btn-dark mt-3">
+        <button  type="submit" className=" mt-3 className='rounded btn btn-success'">
           Add
         </button>
       </form>

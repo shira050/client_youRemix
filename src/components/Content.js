@@ -17,6 +17,7 @@ import SongsList from "../comps_admin/showSongs";
 import CategorySongs from "../views/CategorySongs";
 import AddCategory from "../comps_admin/addCategory";
 import { USER } from "../services/apiService";
+import UploadTest from "./uploadTest";
 
 function Content() {
   let role='user';
@@ -30,27 +31,30 @@ function Content() {
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/search/:arr" element={<Search />} />
           <Route path="/" element={<Home />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/users/signUp" element={<SignUp />} />
+          <Route path="/upload" element={<UploadTest />} />
 
-          {role == 'admin' && (
+
+          {/* {role == 'admin' && ( */}
             <>
               <Route path="/admin/users" element={<UsersList />} />
               <Route path="/admin/categories" element={<CategoriesList />} />
               <Route path="/admin/songs" element={<SongsList />} />
               <Route path="/admin/addCategory" element={<AddCategory />} />
             </>
-          )}
+          {/* )} */}
 
-          {role == 'admin' ||
-            (role == 'user' && (
+          {/* {role == 'admin' ||
+            (role == 'user' && ( */}
               <>
                 <Route path="/users/editProfile" element={<EditProfile />} />
                 <Route path="/users/profile" element={<Profile />} />
                 <Route path="/songs/addSong" element={<AddSong />} />
               </>
-            ))}
+            {/* ))} */}
           <Route
             path="/songs/CategorySongs/:_id/:name"
             element={<CategorySongs />}

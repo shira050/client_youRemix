@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { doApiMethod, API_URL, USER, doApiGet } from "../services/apiService";
+import UploadTest from "../components/uploadTest";
 
 export default function AddCategory() {
   const colors = [
@@ -44,12 +45,11 @@ export default function AddCategory() {
     let url = API_URL + "categories";
     console.log(url + bodyData);
     try {
-      
       console.log("tryyyyyyyy");
       let resp = await doApiMethod(url, "POST", bodyData);
       console.log(resp.data);
       alert("Category add success");
-      
+
       nav("/admin/categories");
     } catch (err) {
       console.log(err.response);
@@ -72,23 +72,27 @@ export default function AddCategory() {
         />
         {errors.title && <div className="text-danger">Enter a valid title</div>}
 
-        <input
+        {/* <input
           {...coverRef}
           type="text"
           className="form-control m-3"
           placeholder="enter a source for an imge"
         />
-        {errors.cover && <div className="text-danger">Enter a valid image</div>}
+        {errors.cover && <div className="text-danger">Enter a valid image</div>} */}
+        <UploadTest {...coverRef}></UploadTest>
+
         <select
           {...backgroundColorRef}
           type="text"
           className="form-control m-3"
         >
-          <option  value="" disabled selected>
+          <option value="" disabled selected>
             Choose background color:
           </option>
           {colors.map((item) => (
-            <option style={{color:item.num}} value={item.num}>{item.name}</option>
+            <option style={{ color: item.num }} value={item.num}>
+              {item.name}
+            </option>
           ))}
         </select>
         <button type="submit" className="btn btn-dark mt-3">

@@ -12,21 +12,10 @@ function CardSection({ item ,rate}) {
 
     const isCurrentPlaying = (current?._id === item._id && playing);
 
-    const roundedStyle = (item) => {
-        switch (item) {
-            case "artist":
-                return 'rounded-full';
-
-            case "podcast":
-                return 'rounded-xl';
-
-            default:
-                return 'rounded-md';
-        }
-    }
+  
 
     const updateCurrent = () => {
-        if(current.id === item._id){
+        if(current._id === item._id){
             if(playing){
                 controls.pause()
             }else{
@@ -46,7 +35,7 @@ function CardSection({ item ,rate}) {
         >
             <div>
                 <div className='pt-[100%] mb-4 relative'>
-                    <img src={item.image} alt="player-card" className={`absolute inset-0 object-cover w-full h-full ${roundedStyle(item.type)}`} />
+                    <img src={item.image} alt="player-card" className={`absolute inset-0 object-cover w-full h-full`} />
                     <button 
                     onClick={updateCurrent}
                     className={`w-10 h-10 rounded-full bg-primary absolute bottom-2 right-2 items-center justify-center group-hover:flex group-focus:flex ${isCurrentPlaying ? 'flex' : 'hidden' }`}>
