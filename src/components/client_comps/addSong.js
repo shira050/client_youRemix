@@ -27,20 +27,22 @@ export default function AddSong() {
     minLength: 2,
     pattern: /^[a-z ,.'-]+$/i,
   });
-  let catRef = register("title", {
+  let catRef = register("category_id", {
     required: true,
     pattern: /^[a-z ,.'-]+$/i,
   });
   let srcRef = register("src", {
     required: true,
   });
-  // let imageRef = register("image", {
-  //     required: true,
-  // });
+  let imageRef = register("image", {
+    required: true,
+    pattern: /\.(jpe?g|png|gif|bmp)$/i,
+  });
 
   const nav = useNavigate();
 
   const onSubForm = (bodyData) => {
+    debugger;
     console.log(bodyData);
 
     doAddSongForm(bodyData);
@@ -49,6 +51,8 @@ export default function AddSong() {
   const doAddSongForm = async (bodyData) => {
     let url = API_URL + "songs";
     try {
+      debugger;
+      console.log("tryyyyyyyy");
       let resp = await doApiMethod(url, "POST", bodyData);
       alert("Song add success");
       console.log(resp.data);
@@ -60,12 +64,11 @@ export default function AddSong() {
   };
 
   const doApiCategories = async () => {
-    debugger;
     let url = API_URL + "categories";
     try {
       let resp = await doApiGet(url);
-      console.log(resp.data);
-       // setCategories(resp.data);//TODO!!!!!!
+      setCategories(resp.data);
+      console.log(categories);
     } catch (err) {
       console.log(err.response);
       alert("Categories wrong or service down");
@@ -98,17 +101,12 @@ export default function AddSong() {
         {errors.subtitle && (
           <div className="text-danger">Enter a valid subtitle</div>
         )}
-        <select
-          {...catRef}
-          type="text"
-          className="form-control m-3"
-          placeholder="Choose Category"
-        >
+        <select {...catRef} type="text" className="form-control m-3">
           <option value="" disabled selected>
             Choose Category:
           </option>
           {categories.map((item) => (
-            <option value={item}>{item}</option>
+            <option value={item._id}>{item.title}</option>
           ))}
         </select>
         <input
@@ -118,13 +116,18 @@ export default function AddSong() {
           placeholder="enter the source song's route"
         />
         {errors.src && <div className="text-danger">Enter a valid src</div>}
-        {/* <input {...imageRef} type="text" className="form-control" placeholder="enter a source for an imge"/>
-                {errors.image && <div className="text-danger">Enter a valid image</div>}
-                 */}
-        <button className="btn btn-dark mt-3">Add</button>
+        <input
+          {...imageRef}
+          type="text"
+          className="form-control"
+          placeholder="enter a source for an iamge"
+        />
+        {errors.image && <div className="text-danger">Enter a valid image</div>}
+
+        <button type="submit" className="btn btn-dark mt-3">
+          Add
+        </button>
       </form>
     </div>
-
   );
 }
-  
