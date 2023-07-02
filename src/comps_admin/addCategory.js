@@ -67,14 +67,14 @@ export default function AddCategory() {
           {...titleRef}
           type="text"
           className="form-control m-3"
-          placeholder="enter the name of the song"
+          placeholder="enter the name of the category"
         />
         {errors.title && <div className="text-danger">Enter a valid title</div>}
 
         <input
           {...coverRef}
           type="text"
-          className="form-control"
+          className="form-control m-3"
           placeholder="enter a source for an imge"
         />
         {errors.cover && <div className="text-danger">Enter a valid image</div>}
@@ -83,11 +83,11 @@ export default function AddCategory() {
           type="text"
           className="form-control m-3"
         >
-          <option value="" disabled selected>
+          <option  value="" disabled selected>
             Choose background color:
           </option>
           {colors.map((item) => (
-            <option value={item.num}>{item.name}</option>
+            <option style={{color:item.num}} value={item.num}>{item.name}</option>
           ))}
         </select>
         <button type="submit" className="btn btn-dark mt-3">

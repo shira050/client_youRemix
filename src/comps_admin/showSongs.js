@@ -53,6 +53,9 @@ export default function SongsList() {
     }, [])
 
     return <>
+    <Link to='/songs/addSong'>
+        <MDBBtn class='rounded btn btn-success'>New Song</MDBBtn>
+    </Link>
         <div className='text-center'>
             <table class="table" style={{ margin: "40px 0", background: 'lightgray' }}>
                 <thead class="black white-text">

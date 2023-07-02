@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { API_URL } from "../services/apiService";
 import { doApiGet, doApiMethod } from "../services/apiService";
 import { Icon } from "../icons/Icons";
+import { Link } from "react-router-dom/dist";
 
 export default function CategoriesList() {
   const [categoriesList, setCategoriesList] = useState([]);
@@ -61,6 +62,9 @@ export default function CategoriesList() {
 
   return (
     <>
+    <Link to='/admin/addCategory'>
+        <MDBBtn class='rounded btn btn-success'>New Category</MDBBtn>
+    </Link>
       <div className="text-center align-items-center justify-center">
         <table
           class="table"
