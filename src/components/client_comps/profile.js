@@ -49,6 +49,7 @@ export default function Profile() {
                     <div className="flex-grow-1 ms-3">
                       <div className="d-flex flex-row align-items-center mb-2">
                         <p className="mb-0 me-2">{currentUser.email} </p>
+                        <p className="mb-0 me-2 text-black text-xl">{currentUser.role} </p>
                       </div>
                     </div>
                     <Link to="/users/editProfile">

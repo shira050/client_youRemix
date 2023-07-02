@@ -8,10 +8,10 @@ const FeedbackStar = ({ rating }) => {
 
   for (let i = 1; i <= 5; i++) {
     (i <= rating)?color="goldStarIcon":color="grayStarIcon";
-    stars.push(<Icon name={color} size={20} />);
+    stars.push(<Icon name={color} size={20}/>);
   }
 
-  return <div className="text-center">{stars}</div>;
+  return <div className="text-center d-flex">{stars}</div>;
 };
 
 export default FeedbackStar;

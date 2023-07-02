@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { Icon } from '../../icons/Icons'
 import { setCurrent } from '../../store/Player'
+import FeedbackStar from '../../comps_admin/feedbek'
 
-function CardSection({ item }) {
+function CardSection({ item ,rate}) {
 
     const dispatch = useDispatch();
     const {current, playing, controls} = useSelector((state) => state.player)
@@ -55,6 +56,7 @@ function CardSection({ item }) {
                 <div>
                     <h5 className='truncate text-base font-bold font-sans'>
                         {item.title}
+                     { rate&& <FeedbackStar rating={item.rate} />}
                     </h5>
                     <p className='line-clamp-2 overflow-hidden text-ellipsis whitespace-normal text-link text-sm font-medium font-sans mt-1'>{item.subtitle}</p>
                 </div>

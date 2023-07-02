@@ -4,9 +4,11 @@ import { getSongList } from "../services/songMetod";
 import HeaderTitle from "../components/Content/HeaderTitle";
 import Category from "../components/Content/SearchContent/Category";
 import { USER } from "../services/apiService";
+import FeedbackStar from "../comps_admin/feedbek";
 
 function Home() {
   const [mostSearch, setMostSearch] = useState([]);
+  const [highestRating, setHighestRating] = useState([]);
   const [userSearch, setUserSearch] = useState([]);
   const [categories, setCategories] = useState([]);
   const [allSong, setAllSong] = useState([]);
@@ -26,6 +28,8 @@ function Home() {
 
       const songsData = await getSongList("songs");
       setAllSong(songsData);
+      // const raitingRemix = await getSongList("songs/mostSearch");
+      setHighestRating(mostSearchData);
     };
 
     fetchData();
@@ -52,7 +56,17 @@ function Home() {
       }
 
       {mostSearch.length > 0 && (
-        <ComponentShelf title={"most listeners songs"} items={mostSearch} />
+        // <ComponentShelf title={"most listeners songs"} items={mostSearch} />
+      //   <>
+      //   <FeedbackStar rating={5}></FeedbackStar>
+      //   <ComponentShelf title={"Remixes With Highest Rating" } items={highestRating} />
+      //  </>
+      <ComponentShelf
+  title={<><FeedbackStar rating={5} /> Remixes With Highest Rating</>}
+  items={highestRating}
+  rate={true}
+/>
+
       )}
       {/* <ComponentShelf title={'Bring music to your home'} seeAll ="/vfmkvgkbn" items={items3}/> */}
 

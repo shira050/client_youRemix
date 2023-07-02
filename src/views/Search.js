@@ -152,7 +152,7 @@ function Search() {
           <i className="display-6">
             <p>you have not any favorite here</p>
             <p>you have to login</p>
-           <MDBBtn className="rounded btn-success"> <Link to='/users/login'>Login</Link></MDBBtn>
+            <Link to='/users/login'> <MDBBtn className="rounded btn-success"> Login</MDBBtn></Link>
           </i>
         )}
       </section>
