@@ -105,6 +105,7 @@ function Search() {
             <li
               key={result.id}
               className="py-2 px-4 hover:bg-gray-100 hover:text-black cursor-pointer"
+              onClick={()=>{searchRef.current.value=result.data.name}}
             >
               {result.data.name}
             </li>
