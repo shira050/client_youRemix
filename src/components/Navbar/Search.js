@@ -39,18 +39,35 @@ function Search() {
 
     const options = {
       method: "GET",
-      url: "https://random-words5.p.rapidapi.com/getMultipleRandom",
-      params: { count: "3" },
+      url: "https://spotify23.p.rapidapi.com/search/",
+      params: {
+        q: inputValue,
+        type: "genres",
+        offset: "0",
+        limit: "10",
+        numberOfTopResults: "5",
+      },
       headers: {
         "X-RapidAPI-Key": "5de34e95a4mshb1f3a9b13bd7f20p1f736fjsn25057c5e3ed1",
-        "X-RapidAPI-Host": "random-words5.p.rapidapi.com",
+        "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "*",
+        connection: "keep-alive",
+        "content-length": "46898",
+        "content-type": "application/json",
+        date: "Mon, 07 Mar 2022 09:39:05 GMT",
+        server: "RapidAPI-1.2.8",
+        "x-powered-by": "PHP/8.0.15, PleskLin",
+        "x-rapidapi-region": "AWS - eu-central-1",
+        "x-rapidapi-version": "1.2.8",
       },
     };
 
     try {
       const response = await axios.request(options);
+      debugger;
       console.log(response.data);
-      setSearchResults(response.data);
+      setSearchResults(response.data.genres.items);
     } catch (error) {
       console.error(error);
     }
@@ -58,7 +75,6 @@ function Search() {
 
   useEffect(() => {
     const delayTimer = setTimeout(handleInputChange, 500);
-
     return () => {
       clearTimeout(delayTimer);
     };
@@ -85,15 +101,12 @@ function Search() {
       {/* Display search results */}
       {searchResults.length > 0 && (
         <ul className="absolute left-0 right-0 bg-dark rounded-b-lg shadow-md overflow-hidden mt-2">
-          {console.log("rrrs", searchResults)}
           {searchResults.map((result) => (
             <li
               key={result.id}
-              className="py-2 px-4 hover:bg-gray-100 cursor-pointer"
+              className="py-2 px-4 hover:bg-gray-100 hover:text-black cursor-pointer"
             >
-              {result}
-
-              {/* {result.title} */}
+              {result.data.name}
             </li>
           ))}
         </ul>
@@ -101,5 +114,4 @@ function Search() {
     </div>
   );
 }
-
 export default Search;

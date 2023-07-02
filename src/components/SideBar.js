@@ -14,7 +14,10 @@ function SideBar() {
 
   const { sidebar } = useSelector((state) => state.player.sidebar);
   // const { currentUser } = useSelector((state) => state.user);
-  const currentUser=JSON.parse(localStorage[USER]);;
+  let currentUser;
+  if (localStorage[USER]) {
+    currentUser = JSON.parse(localStorage[USER]);
+  }
   
   console.log(currentUser,"cur");
 
