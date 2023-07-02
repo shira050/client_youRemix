@@ -20,7 +20,7 @@ function Search() {
       if (resp.data.length > 0) {
         alert("good");
         // nav(`search/${encodeURIComponent(resp.data)}`);
-        nav('search/',resp.data)
+        nav("search/", resp.data);
         // localStorage.setItem(USER, JSON.stringify(resp.data));
         // dispatch(loginSuccess(resp.data));
       } else nav("songs/addSong");
@@ -42,9 +42,9 @@ function Search() {
       url: "https://spotify23.p.rapidapi.com/search/",
       params: {
         q: inputValue,
-        type: "genres",
+        type: "tracks",
         offset: "0",
-        limit: "10",
+        limit: "7",
         numberOfTopResults: "5",
       },
       headers: {
@@ -67,7 +67,7 @@ function Search() {
       const response = await axios.request(options);
       debugger;
       console.log(response.data);
-      setSearchResults(response.data.genres.items);
+      setSearchResults(response.data.tracks.items);
     } catch (error) {
       console.error(error);
     }
