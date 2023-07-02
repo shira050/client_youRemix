@@ -26,7 +26,6 @@ export default function AddCategory() {
 
   let coverRef = register("cover", {
     required: true,
-    pattern: /\.(jpe?g|png|gif|bmp)$/i,
   });
 
   let backgroundColorRef = register("backgroundColor", {
@@ -43,13 +42,15 @@ export default function AddCategory() {
 
   const doAddCategoryForm = async (bodyData) => {
     let url = API_URL + "categories";
+    console.log(url + bodyData);
     try {
-      debugger;
+      
       console.log("tryyyyyyyy");
       let resp = await doApiMethod(url, "POST", bodyData);
-      alert("Category add success");
       console.log(resp.data);
-      nav("/");
+      alert("Category add success");
+      
+      nav("/admin/categories");
     } catch (err) {
       console.log(err.response);
       alert("have a problem");

@@ -22,6 +22,7 @@ export const doApiGet = async (_url) => {
 // For Post,delete, put, patch
 export const doApiMethod = async (_url, _method, _body = {}) => {
   try {
+    
     console.log(_body);
     let resp = await axios({
       url: _url,
@@ -31,6 +32,7 @@ export const doApiMethod = async (_url, _method, _body = {}) => {
         "x-api-key": localStorage[TOKEN_NAME],
       },
     });
+    console.log(resp.data);
     return resp;
   } catch (err) {
     throw err;

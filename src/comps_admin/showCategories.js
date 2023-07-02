@@ -58,7 +58,7 @@ export default function CategoriesList() {
 
   useEffect(async () => {
     doApiInfo();
-  }, []);
+  }, [setCategoriesList]);
 
   return (
     <>
