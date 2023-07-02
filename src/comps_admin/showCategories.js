@@ -8,9 +8,12 @@ import { API_URL } from "../services/apiService";
 import { doApiGet, doApiMethod } from "../services/apiService";
 import { Icon } from "../icons/Icons";
 import { Link } from "react-router-dom/dist";
+// import { PaginationControl } from 'react-bootstrap-pagination-control';
 
 export default function CategoriesList() {
   const [categoriesList, setCategoriesList] = useState([]);
+  // const [page, setPage] = useState(1)
+
   const nav = useNavigate();
 
   const doApiInfo = async () => {
@@ -62,6 +65,17 @@ export default function CategoriesList() {
 
   return (
     <>
+    {/* <PaginationControl
+    page={page}
+    between={4}
+    total={250}
+    limit={20}
+    changePage={(page) => {
+      setPage(page); 
+      console.log(page)
+    }}
+    ellipsis={1}
+  /> */}
     <Link to='/admin/addCategory'>
         <MDBBtn class='rounded btn btn-success'>New Category</MDBBtn>
     </Link>

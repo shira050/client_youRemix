@@ -22,7 +22,7 @@ export default function Login() {
 
   const nav = useNavigate();
 
-  const onSubForm = (bodyData) => {
+  const onSubForm = (bodyData) => {debugger
     // data -> מכיל את כל המאפיינים שלה השמות של האינפוטים עם הערך שלהם
     console.log(bodyData);
     doApiForm(bodyData);
@@ -33,6 +33,7 @@ export default function Login() {
     let url = API_URL + "users/login";
     try {
       let resp = await doApiMethod(url, "POST", bodyData);
+      debugger
       // לשמור את הטוקן
       localStorage.setItem(TOKEN_NAME, resp.data.your_token);
       console.log(resp.data);

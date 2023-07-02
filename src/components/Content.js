@@ -3,7 +3,7 @@ import Navbar from "./Navbar";
 import Login from "./client_comps/login";
 import { Routes, Route } from "react-router-dom";
 import Home from "../views/Home";
-import Search from "../views/Search";
+import Search from "../views/SearchPage";
 import Collection from "../views/Collection";
 import SubSection from "./Content/CollectionContent/SubSection";
 import SignUp from "./client_comps/signUp";
@@ -30,8 +30,8 @@ function Content() {
       <div className="px-8 py-5">
         <Routes>
           <Route path="/" exact={true} element={<Home />} />
-          <Route path="/search" element={<Search />} />
           <Route path="/search/:arr" element={<Search />} />
+          <Route path="/search" element={<Search />} />
           <Route path="/" element={<Home />} />
           <Route path="/users/login" element={<Login />} />
           <Route path="/users/signUp" element={<SignUp />} />

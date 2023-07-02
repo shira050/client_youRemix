@@ -12,21 +12,37 @@ function Search() {
   const nav = useNavigate();
   const [searchResults, setSearchResults] = useState([]);
   const doApiGetSong = async () => {
+    debugger
     // console.log(searchRef.current.value);
     let url = `${API_URL}songs/search/?s=${searchRef.current.value}`;
     console.log(url);
     try {
       let resp = await doApiGet(url);
       if (resp.data.length > 0) {
-        alert("good");
-        // nav(`search/${encodeURIComponent(resp.data)}`);
-        nav("search/", resp.data);
-        // localStorage.setItem(USER, JSON.stringify(resp.data));
+        // alert("good");
+        searchRef.current.value="";
+        nav(`/search/${encodeURIComponent(JSON.stringify(resp.data))}`);
+        // nav("search/", resp.data);
+       //TODO-לרענן משתמש בזיכרון
         // dispatch(loginSuccess(resp.data));
+        doApiInfo();
       } else nav("songs/addSong");
     } catch (err) {
       console.log(err.response);
       alert("User or password wrong, or service down");
+    }
+  };
+
+  const doApiInfo = async () => {
+    let url = API_URL + "users/userInfo";
+    try {
+      let resp = await doApiGet(url);
+      localStorage.setItem(USER, JSON.stringify(resp.data));
+      // dispatch(loginSuccess(resp.data));
+      console.log(resp.data);
+    } catch (err) {
+      console.log(err.response);
+      alert("User or password worng, or service down");
     }
   };
 

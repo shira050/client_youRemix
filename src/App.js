@@ -10,7 +10,7 @@ import Home from "./views/Home";
 import SideBar from "./components/SideBar";
 import Content from "./components/Content";
 import BottomBar from "./components/BottomBar";
-import Search from "./views/Search";
+import Search from "./views/SearchPage";
 
 function App() {
   return (

@@ -11,7 +11,7 @@ import { MDBBtn } from "mdb-react-ui-kit";
 import { useParams } from "react-router-dom/dist";
 import ComponentShelf from "../components/Content/HomeContent/ComponentShelf";
 
-function Search() {
+function SearchPage() {
   // const { currentUser } = useSelector((state) => state.user);
   const favRef = useRef();
   const [prev, setPrev] = useState(false);
@@ -80,9 +80,13 @@ function Search() {
 
   return (
     <>
-      { arr.length > 0 && console.log(arr)&&(
-        <ComponentShelf title={"your search"} items={arr} />
-      )}
+      {(arr && arr.length > 0 )? <>{console.log(arr,"arr")}
+        <ComponentShelf title={`your search:`} items={JSON.parse (arr)} />
+        {/* <p>{arr.length}</p> */}
+      </>
+    :
+    <p>no result</p>
+    }
       <section className="mb-8">
         <HeaderTitle
           title={"Favorite Genres"}
@@ -153,4 +157,4 @@ function Search() {
   );
 }
 
-export default Search;
+export default SearchPage;
