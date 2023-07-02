@@ -75,6 +75,7 @@ export default function ShowUsers() {
             <table class="table" style={{ margin: "40px 0", background: 'lightgray' }}>
                 <thead class="black white-text">
                     <tr>
+                        <th scope="col">Imge</th>
                         <th scope="col">First Name</th>
                         <th scope="col">Last Name</th>
                         <th scope="col">Role</th>
@@ -85,6 +86,7 @@ export default function ShowUsers() {
                 <tbody>
                     {userList.map((x) =>
                         <tr>
+                            <td><img style={{ width: "70px",borderRadius:'50%',margin:"auto" }} src={x.avatar}></img></td>
                             <td>{x.firstName}</td>
                             <td>{x.lastName}</td>
                             <td onClick={() => { doChangeRole(x._id, x.role.toLowerCase()) }}><MDBBtn style={{ minWidth:"30%" }} className='btn btn-success' rounded > {x.role.toUpperCase()} </MDBBtn></td>
