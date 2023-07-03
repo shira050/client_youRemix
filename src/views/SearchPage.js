@@ -124,7 +124,7 @@ function SearchPage() {
               className="flex overflow-x-auto gap-x-6 scroll-smooth"
             >
               {mostListened.map((item) => (
-                <ListenedCategory key={item._id} category={item} />
+                <ListenedCategory key={item._id} item={item} />
               ))}
             </ScrollContainer>
 
