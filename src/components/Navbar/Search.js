@@ -64,7 +64,7 @@ function Search() {
         numberOfTopResults: "5",
       },
       headers: {
-        // 'X-RapidAPI-Key': 'b439e938bbmsh09d1df27d09ed94p178fbcjsn3f9d5c3e4072',
+        'X-RapidAPI-Key': 'b439e938bbmsh09d1df27d09ed94p178fbcjsn3f9d5c3e4072',
         'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
         "access-control-allow-credentials": "true",
         "access-control-allow-origin": "*",
@@ -79,15 +79,15 @@ function Search() {
       },
     };
 
-    try {
-      const response = await axios.request(options);
-      console.log(response);
-      debugger;
-      console.log(response.data);
-      setSearchResults(response.data.tracks.items);
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const response = await axios.request(options);
+    //   console.log(response);
+    //   debugger;
+    //   console.log(response.data);
+    //   setSearchResults(response.data.tracks.items);
+    // } catch (error) {
+    //   console.error(error);
+    // }
   };
 
   useEffect(() => {

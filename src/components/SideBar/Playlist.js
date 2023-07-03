@@ -32,6 +32,8 @@
 import React, { useEffect, useState } from "react";
 import ComponentList from "../client_comps/componentList";
 import { USER } from "../../services/apiService";
+import { Link } from "react-router-dom";
+import { MDBBtn } from "mdb-react-ui-kit";
 
 function Playlist() {
   const [userSearch, setUserSearch] = useState([]);
@@ -48,12 +50,20 @@ function Playlist() {
 
   return (
     <>
-      <ComponentList title={"Your last search"} items={userSearch} />
+      {localStorage[USER] ? (
+        <ComponentList title={"Your last search"} items={userSearch} />
+      ) : (
+        <i className="display-6">
+          <p>you have not any playlist here</p>
+          <p>you have to login</p>
+          <Link to="/users/login">
+            {" "}
+            <MDBBtn className="rounded btn-success"> Login</MDBBtn>
+          </Link>
+        </i>
+      )}
     </>
   );
 }
 
 export default Playlist;
-
-
-
