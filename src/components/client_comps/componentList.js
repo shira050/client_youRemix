@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import RowSection from "./rowSection";
 import HeaderTitle from "../Content/HeaderTitle";
 import { Icon } from "../../icons/Icons";
 
 function ComponentList({ title, items, rate }) {
-  const [shuffledItems, setShuffledItems] = useState(items);
+  const [shuffledItems, setShuffledItems] = useState([...items]);
 
   const shuffleItems = () => {
     const shuffled = [...shuffledItems];
@@ -15,11 +15,14 @@ function ComponentList({ title, items, rate }) {
     setShuffledItems(shuffled);
   };
 
+  useEffect(() => {
+    setShuffledItems(items);
+  }, [items]);
+
   return (
     <section className="mb-4 min-w-full">
-      
       <HeaderTitle title={title} font={"semibold"} />
-      <button onClick={shuffleItems} className="rounded btn btn-success">
+      <button onClick={shuffleItems} className="rounded btn btn-success my-3">
         <Icon name={"shuffle"}></Icon>
       </button>
       <div className="grid gap-x-6">

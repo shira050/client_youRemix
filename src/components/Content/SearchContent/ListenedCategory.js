@@ -45,7 +45,7 @@ function ListenedCategory({ item }) {
               item.image ||
               "https://cdn.pixabay.com/photo/2015/01/08/01/11/headphones-592196_1280.jpg"
             }
-            className="w-32 h-32 rotate-[25deg] translate-x-[18%] translate-y-[5%] absolute bottom-0 right-0 shadow-normal"
+            className="w-50 h-42 rotate-[25deg] translate-x-[18%] translate-y-[5%] absolute bottom-0 right-0 shadow-normal"
             alt=""
           />
           <button

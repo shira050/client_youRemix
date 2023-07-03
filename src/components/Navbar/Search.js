@@ -64,8 +64,8 @@ function Search() {
         numberOfTopResults: "5",
       },
       headers: {
-        "X-RapidAPI-Key": "5de34e95a4mshb1f3a9b13bd7f20p1f736fjsn25057c5e3ed1",
-        "X-RapidAPI-Host": "spotify23.p.rapidapi.com",
+        // 'X-RapidAPI-Key': 'b439e938bbmsh09d1df27d09ed94p178fbcjsn3f9d5c3e4072',
+        'X-RapidAPI-Host': 'spotify23.p.rapidapi.com',
         "access-control-allow-credentials": "true",
         "access-control-allow-origin": "*",
         connection: "keep-alive",
@@ -81,6 +81,7 @@ function Search() {
 
     try {
       const response = await axios.request(options);
+      console.log(response);
       debugger;
       console.log(response.data);
       setSearchResults(response.data.tracks.items);
