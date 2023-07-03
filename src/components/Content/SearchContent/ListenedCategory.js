@@ -5,7 +5,8 @@ import { Icon } from "../../../icons/Icons";
 import { setCurrent } from "../../../store/Player";
 import { Link } from "react-router-dom";
 
-function ListenedCategory({ item }) {//TODO!!
+function ListenedCategory({ item }) {
+  //TODO!!
   console.log(item);
   const { current, playing, controls } = useSelector((state) => state.player);
 
@@ -24,70 +25,42 @@ function ListenedCategory({ item }) {//TODO!!
     }
   };
   return (
-
-
-
-
-
-    <div
-      style={{ "--color": item.backgroundColor || "#85144b" }}
-      className={
-        "bg-[color:var(--color)] rounded-lg relative w-[24.25rem] h-[13.75rem] shrink-0"
-      }
+    <Link
+      key={item._id}
+      className="bg-footer p-4 rounded-md  hover:bg-active group"
     >
-      <div className="absolute inset-0 overflow-hidden">
-        <h3 className="text-white text-[2.5rem] tracking-tighter leading-7 font-bold p-4 break-words">
-          {item.title}
-        </h3>
-
-        <img
-          src={
-            item.image ||
-            "https://cdn.pixabay.com/photo/2015/01/08/01/11/headphones-592196_1280.jpg"
-          }
-          className="w-32 h-32 rotate-[25deg] translate-x-[18%] translate-y-[5%] absolute bottom-0 right-0 shadow-normal"
-          alt=""
-        />
-         <button
-        onClick={updateCurrent}
-        className={`w-10 h-10 rounded-full bg-primary absolute bottom-2 right-2 items-center justify-center group-hover:flex group-focus:flex ${
-          isCurrentPlaying ? "flex" : "hidden"
-        }`}
+      <div
+        style={{ "--color": item.backgroundColor || "#85144b" }}
+        className={
+          "bg-[color:var(--color)] rounded-lg relative w-[24.25rem] h-[13.75rem] shrink-0"
+        }
       >
-        <Icon name={isCurrentPlaying ? "pause" : "play"} size={16} />
-      </button>
+        <div className="absolute inset-0 overflow-hidden">
+          <h3 className="text-white text-[2.5rem] tracking-tighter leading-7 font-bold p-4 break-words">
+            {item.title}
+          </h3>
+
+          <img
+            src={
+              item.image ||
+              "https://cdn.pixabay.com/photo/2015/01/08/01/11/headphones-592196_1280.jpg"
+            }
+            className="w-32 h-32 rotate-[25deg] translate-x-[18%] translate-y-[5%] absolute bottom-0 right-0 shadow-normal"
+            alt=""
+          />
+          <button
+            onClick={updateCurrent}
+            className={`w-10 h-10 rounded-full bg-primary absolute bottom-2 right-2 items-center justify-center group-hover:flex group-focus:flex ${
+              isCurrentPlaying ? "flex" : "hidden"
+            }`}
+          >
+            <Icon name={isCurrentPlaying ? "pause" : "play"} size={16} />
+          </button>
+        </div>
       </div>
-     
-      
-     </div>
-
-// {/* <Link
-//             key={item._id}
-//             className="bg-footer p-4 rounded-md flex-1 hover:bg-active group"
-//         >
-//             <div>
-//                 <div className='pt-[100%] mb-4 relative'>
-//                     <img src={item.image} alt="player-card" className={`absolute inset-0 object-cover w-full h-full`} />
-//                     <button 
-//                     onClick={updateCurrent}
-//                     className={`w-10 h-10 rounded-full bg-primary absolute bottom-2 right-2 items-center justify-center group-hover:flex group-focus:flex ${isCurrentPlaying ? 'flex' : 'hidden' }`}>
-//                         <Icon name={ isCurrentPlaying ? "pause" : "play"} size={16} />
-//                     </button>
-//                 </div>
-//                 <div>
-//                     <h5 className='truncate text-base font-bold font-sans'>
-//                         {item.title}
-//                     </h5>
-//                     <p className='line-clamp-2 overflow-hidden text-ellipsis whitespace-normal text-link text-sm font-medium font-sans mt-1'>{item.subtitle}</p>
-//                 </div>
-//             </div>
-//         </Link> */}
-
-    // {/* <h3> {item.title}</h3>
-    //   <div className="w-50">
-    //     <CardSection item={item} key={item._id} />
-    //   </div> */}
+    </Link>
   );
 }
+
 
 export default ListenedCategory;

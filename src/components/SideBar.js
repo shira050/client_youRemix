@@ -81,7 +81,6 @@ function SideBar() {
 
       </nav>
 
-      <Playlist />
 
       <DownloadApp />
 

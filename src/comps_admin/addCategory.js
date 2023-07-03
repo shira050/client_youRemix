@@ -79,8 +79,7 @@ export default function AddCategory() {
           placeholder="enter a source for an imge"
         />
         {errors.cover && <div className="text-danger">Enter a valid image</div>} */}
-        <UploadTest {...coverRef}></UploadTest>
-
+        <UploadTest url={coverRef} {...coverRef}></UploadTest>
         <select
           {...backgroundColorRef}
           type="text"

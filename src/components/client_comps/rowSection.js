@@ -29,18 +29,18 @@ function RowSection({ item}) {
             className="bg-footer p-4 rounded-md flex-1 hover:bg-active group"
         >
             <div className='row'>
-                <div className='w-20 h-20 mb-4 relative col-3'>
-                    <img src={item.image} alt="player-card" className={`absolute inset-0 object-cover w-full h-full`} />
+                <div className='w-20 h-10 mb-4 relative col-3 mx-2'>
+                    <img src={item.image} alt="player-card" className={`absolute inset-0 object-cover  `} />
                 </div>
-                <div>
-                    <h5 className='truncate text-base font-bold font-sans col-3'>
+                <div className='col-9 row'>
+                    <h5 className='truncate text-base font-bold font-sans col-7'>
                         {item.title}
                     </h5>
-                    <p className='line-clamp-2 overflow-hidden text-ellipsis whitespace-normal text-link text-sm font-medium font-sans mt-1 col-5'>{item.subtitle}</p>
+                    <p className=' line-clamp-2 overflow-hidden text-ellipsis whitespace-normal text-link text-sm font-medium font-sans mt-1 col-5'>{item.subtitle}</p>
                 </div>
                 <button 
                     onClick={updateCurrent}
-                    className={`w-10 h-10 rounded-full bg-primary absolute bottom-2 right-2 items-center justify-center group-hover:flex group-focus:flex ${isCurrentPlaying ? 'flex' : 'hidden' }`}>
+                    className={`w-10 h-10 rounded-full bg-primary  bottom-2 right-2 items-center justify-center group-hover:flex group-focus:flex ${isCurrentPlaying ? 'flex' : 'hidden' }`}>
                         <Icon name={ isCurrentPlaying ? "pause" : "play"} size={16} />
                 </button>
             </div>

@@ -124,7 +124,7 @@ export default function AddSong() {
           placeholder="enter a source for an iamge"
         />
         {errors.image && <div className="text-danger">Enter a valid image</div>} */}
-        <UploadTest  {...imageRef} ></UploadTest>
+        <UploadTest url={imageRef}  {...imageRef} ></UploadTest>
 
         <button  type="submit" className=" mt-3 className='rounded btn btn-success'">
           Add
