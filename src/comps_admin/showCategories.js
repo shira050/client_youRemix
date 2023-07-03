@@ -1,3 +1,4 @@
+
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
@@ -8,11 +9,12 @@ import { API_URL } from "../services/apiService";
 import { doApiGet, doApiMethod } from "../services/apiService";
 import { Icon } from "../icons/Icons";
 import { Link } from "react-router-dom/dist";
-// import { PaginationControl } from 'react-bootstrap-pagination-control';
 
 export default function CategoriesList() {
   const [categoriesList, setCategoriesList] = useState([]);
-  // const [page, setPage] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5);
+ 
 
   const nav = useNavigate();
 
@@ -28,12 +30,11 @@ export default function CategoriesList() {
       alert("you have to be admin, or service down");
     }
   };
-  const doDeleteCategory = async (_id) => {
-    debugger;
 
+  const doDeleteCategory = async (_id) => {
     let url = API_URL + "categories/" + _id;
     try {
-      let resp = await doApiMethod(url, "PATCH",{active:false});
+      let resp = await doApiMethod(url, "PATCH", { active: false });
       alert("נמחק בהצלחה");
       doApiInfo();
       console.log(resp.data);
@@ -42,62 +43,66 @@ export default function CategoriesList() {
       alert("something worng, or service down");
     }
   };
-  // const doChangeRole = async (_id, role) => {
-  //     debugger
-  //     let newRole;
-  //     role == 'user' ? newRole = 'admin' : newRole = 'user';
-  //     let url = API_URL + "users/" + _id + "/" + newRole;
-  //     try {
-  //         // bodyData.password=currentUser.password;
-  //         let resp = await doApiMethod(url, "PATCH");
-  //         alert("סטטוס משתמש עודכן");
-  //         console.log(resp.data);
-  //     } catch (err) {
-  //         console.log(err.response);
-  //         alert("something worng, or service down");
-  //     }
 
-  // };
-
-  useEffect(async () => {
+  useEffect(() => {
     doApiInfo();
-  }, [setCategoriesList]);
+  }, []);
+
+  // Logic for displaying current items
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = categoriesList.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Logic for pagination
+  const pageNumbers = [];
+for (let i = 1; i <= Math.ceil(categoriesList.length / itemsPerPage); i++) {
+  pageNumbers.push(i);
+}
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
-    {/* <PaginationControl
-    page={page}
-    between={4}
-    total={250}
-    limit={20}
-    changePage={(page) => {
-      setPage(page); 
-      console.log(page)
-    }}
-    ellipsis={1}
-  /> */}
-    <Link to='/admin/addCategory'>
-        <MDBBtn class='rounded btn btn-success'>New Category</MDBBtn>
-    </Link>
+      <Link to="/admin/addCategory">
+        <MDBBtn className="rounded btn btn-success">New Category</MDBBtn>
+      </Link>
+      <div>
+          {/* Pagination */}
+          <nav>
+            <ul className="pagination">
+              {pageNumbers.map((number) => (
+                <li key={number} className="page-item mt-3">
+                  <a
+                    onClick={() => paginate(number)}
+                    className="page-link cursor-pointer"
+                   
+                  >
+                    {number}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
       <div className="text-center align-items-center justify-center">
         <table
-          class="table"
+          className="table"
           style={{ margin: "40px 0", background: "lightgray" }}
         >
-          <thead class="black white-text">
+          <thead className="black white-text">
             <tr>
               <th scope="col">Name</th>
-              <th scope="col">Imge </th>
-              <th scope="col">Delete </th>
+              <th scope="col">Image</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
 
           <tbody>
-            {categoriesList.map((x) => (
-              <tr className="">
+            {currentItems.map((x) => (
+              <tr key={x._id}>
                 <td>{x.title}</td>
                 <td>
-                  <img className="h-20" src={x.cover} />
+                  <img className="h-20" src={x.cover} alt={x.title} />
                 </td>
                 <td
                   onClick={() => {
@@ -112,6 +117,8 @@ export default function CategoriesList() {
             ))}
           </tbody>
         </table>
+
+       
       </div>
     </>
   );

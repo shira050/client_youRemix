@@ -18,6 +18,7 @@ import CategorySongs from "../views/CategorySongs";
 import AddCategory from "../comps_admin/addCategory";
 import { USER } from "../services/apiService";
 import UploadTest from "./uploadTest";
+import Playlist from "./SideBar/Playlist";
 
 function Content() {
   let role='user';
@@ -53,6 +54,8 @@ function Content() {
                 <Route path="/users/editProfile" element={<EditProfile />} />
                 <Route path="/users/profile" element={<Profile />} />
                 <Route path="/songs/addSong" element={<AddSong />} />
+                <Route path="/songs/playlist" element={<Playlist />} />
+
               </>
             {/* ))} */}
           <Route

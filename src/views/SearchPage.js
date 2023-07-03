@@ -38,7 +38,7 @@ function SearchPage() {
     doApiCategories();
     const userLocalStorage = localStorage.getItem(USER);
     // setNewArr({arr});
-    
+
     if (userLocalStorage) {
       const parsedUser = JSON.parse(userLocalStorage);
       setMostListened(parsedUser.lastSearch);
@@ -80,16 +80,22 @@ function SearchPage() {
 
   return (
     <>
-      {(arr && arr.length > 0 )? <>{console.log(arr,"arr")}
-        <ComponentShelf title={`your search:`} items={JSON.parse (arr)} />
-        {/* <p>{arr.length}</p> */}
-      </>
-    :
-    <p>no result</p>
-    }
+      {(arr && arr.length > 0 )&& (
+        <>
+          {console.log(arr, "arr")}
+          <ComponentShelf title={`your search:`} items={JSON.parse(arr)} />
+          {/* <p>{arr.length}</p> */}
+        </>
+      )
+      //  : (
+      //   <i className="display-6">
+      //     <p>you have not any favorite yet...</p>
+      //   </i>
+      // )
+      }
       <section className="mb-8">
         <HeaderTitle
-          title={"Favorite Genres"}
+          title={"Favorite Remixes"}
           seeAll={false}
           font={"bold"}
           textDecoration={"no-underline"}

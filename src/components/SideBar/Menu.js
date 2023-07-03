@@ -25,7 +25,7 @@ function Menu() {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/collection"} className={({isActive}) => isActive ? activeStyle+" "+style : style }>
+                    <NavLink to={"songs/playlist"} className={({isActive}) => isActive ? activeStyle+" "+style : style }>
                         <span>
                             <Icon name="collection" />
                         </span>
