@@ -15,6 +15,7 @@ import { makeSong } from "../../services/apiMakeSong";
 export default function AddSong() {
   const [categories, setCategories] = useState([]);
   const {title}=useParams();
+  const defaltImg='https://res.cloudinary.com/dibmyw8lx/image/upload/v1687857888/portrait-curly-pink-haired-woman-massive-white-headphones_sggk3p.jpg'
 
   const {
     register,
@@ -60,6 +61,9 @@ export default function AddSong() {
     try {
       debugger;
       console.log("tryyyyyyyy");
+      if(imageRef.value==''||imageRef.value==undefined){
+        bodyData.image =defaltImg;
+      }
       bodyData.image =await imageRef.value;
       let resp = await doApiMethod(url, "POST", bodyData);
       alert("Song add success");
@@ -84,6 +88,9 @@ export default function AddSong() {
   };
 
   useEffect(() => {
+    if(!localStorage[USER]){
+      alert("you have to login!")
+    }
     doApiCategories();
   }, []);
 
@@ -133,6 +140,7 @@ export default function AddSong() {
         <button
           type="submit"
           className=" mt-3 className='rounded btn btn-success"
+          disabled={!localStorage[USER]}
         >
           Add
         </button>
