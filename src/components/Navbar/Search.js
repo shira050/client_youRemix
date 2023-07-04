@@ -26,7 +26,10 @@ function Search() {
        //TODO-לרענן משתמש בזיכרון
         // dispatch(loginSuccess(resp.data));
         doApiInfo();
-      } else nav("songs/addSong");
+      } else{
+        setSearchResults([]);
+        nav(`songs/addSong/${searchRef.current.value}`);
+      } 
     } catch (err) {
       console.log(err.response);
       alert("User or password wrong, or service down");
@@ -48,6 +51,7 @@ function Search() {
 
   const handleInputChange = async () => {
     const inputValue = searchRef.current.value;
+    setSearchResults([]);
     if (inputValue.trim() === "") {
       setSearchResults([]);
       return;
@@ -89,6 +93,11 @@ function Search() {
     //   console.error(error);
     // }
   };
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      doApiGetSong();
+    }
+  };
 
   useEffect(() => {
     const delayTimer = setTimeout(handleInputChange, 500);
@@ -113,7 +122,9 @@ function Search() {
         autoFocus={true}
         className="h-10 max-w-full w-[22.75rem] py-1.5 px-12 bg-white rounded-full text-ellipsis placeholder-black/50 text-black text-sm font-semibold outline-none"
         placeholder="Search RemixSong"
+        onKeyPress={handleKeyPress}
         onChange={handleInputChange}
+        
       />
       {/* Display search results */}
       {searchResults.length > 0 && (

@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   doApiMethod,
   API_URL,
@@ -14,6 +14,7 @@ import { makeSong } from "../../services/apiMakeSong";
 
 export default function AddSong() {
   const [categories, setCategories] = useState([]);
+  const {title}=useParams();
 
   const {
     register,
@@ -26,7 +27,7 @@ export default function AddSong() {
     pattern: /^[a-z ,.'-]+$/i,
   });
   let subtitleRef = register("subtitle", {
-    required: true,
+    required: false,
     minLength: 2,
     pattern: /^[a-z ,.'-]+$/i,
   });
@@ -35,10 +36,10 @@ export default function AddSong() {
     pattern: /^[a-z ,.'-]+$/i,
   });
   let srcRef = register("src", {
-    required: true,
+    required:false
   });
   let imageRef = register("image", {
-    required: true,
+    required:false,
     pattern: /\.(jpe?g|png|gif|bmp)$/i,
   });
 
@@ -53,12 +54,13 @@ export default function AddSong() {
 
   const doAddSongForm = async (bodyData) => {
     // זימון יצירת רמיקס
-    srcRef.value = makeSong();
+    srcRef.value = makeSong(bodyData.currentTarget[0].value);
 
     let url = API_URL + "songs";
     try {
       debugger;
       console.log("tryyyyyyyy");
+      bodyData.image =await imageRef.value;
       let resp = await doApiMethod(url, "POST", bodyData);
       alert("Song add success");
       console.log(resp.data);
@@ -90,7 +92,7 @@ export default function AddSong() {
     <div className="container">
       <h1 className="text-center">Add Song</h1>
       <form
-        onSubmit={handleSubmit(onSubForm)}
+        onSubmit={(onSubForm)}
         className="col-md-6 p-3 shadow mx-auto"
       >
         <input
@@ -98,6 +100,7 @@ export default function AddSong() {
           type="text"
           className="form-control m-3"
           placeholder="enter the name of the song"
+          defaultValue={title}
         />
         {errors.title && <div className="text-danger">Enter a valid title</div>}
         <input
@@ -125,7 +128,7 @@ export default function AddSong() {
           placeholder="enter a source for an iamge"
         />
         {errors.image && <div className="text-danger">Enter a valid image</div>} */}
-        <UploadTest update={updateUpload}></UploadTest>
+        <UploadTest update={updateUpload} {...imageRef}></UploadTest>
 
         <button
           type="submit"

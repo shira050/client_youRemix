@@ -31,7 +31,7 @@ function CardSection({ item ,rate}) {
     return (
         <Link
             key={item._id}
-            className="bg-footer p-4 rounded-md flex-1 hover:bg-active group"
+            className="bg-footer p-4 rounded-md flex-1 hover:bg-active group mb-5"
         >
             <div>
                 <div className='pt-[100%] mb-4 relative'>

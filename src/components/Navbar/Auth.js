@@ -45,7 +45,7 @@ function Auth() {
     }
   }, [localStorage[USER]]);
   return (
-    <Menu style={{ zIndex: '99999' }} as="nav" className={"relative"}>
+    <Menu style={{  }} as="nav" className={"relative"}>
       {({ open }) => (
         <>
           <Menu.Button

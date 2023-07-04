@@ -53,6 +53,7 @@ function Content() {
               <>
                 <Route path="/users/editProfile" element={<EditProfile />} />
                 <Route path="/users/profile" element={<Profile />} />
+                <Route path="/songs/addSong/:title" element={<AddSong />} />
                 <Route path="/songs/addSong" element={<AddSong />} />
                 <Route path="/songs/playlist" element={<Playlist />} />
 

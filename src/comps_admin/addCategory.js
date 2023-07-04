@@ -6,12 +6,11 @@ import { doApiMethod, API_URL, USER, doApiGet } from "../services/apiService";
 import UploadTest from "../components/uploadTest";
 
 export default function AddCategory() {
-  const imageRef = useRef();
   const updateUpload = (url)=>{
     debugger
-    imageRef.value =url;
+    coverRef.value =url;
     console.log("hii from update")
-    console.log(imageRef.value)
+    console.log(coverRef.value)
   }
 
   const colors = [
@@ -34,7 +33,8 @@ export default function AddCategory() {
   });
 
   let coverRef = register("cover", {
-    required: true,
+    required: false, 
+
   });
 
   let backgroundColorRef = register("backgroundColor", {
@@ -50,11 +50,11 @@ export default function AddCategory() {
   };
 
   const doAddCategoryForm = async (bodyData) => {
-    let url = API_URL + "songs";
+    let url = API_URL + "categories";
     try {
       debugger;
-      console.log("tryyyyyyyy");
-      let resp = await doApiMethod(url, "POST", bodyData);
+      bodyData.cover =await coverRef.value;
+            let resp = await doApiMethod(url, "POST", bodyData);
       alert("category add success");
       console.log(resp.data);
       nav("/admin/categories");
@@ -88,7 +88,7 @@ export default function AddCategory() {
           placeholder="enter a source for an imge"
         />
         {errors.cover && <div className="text-danger">Enter a valid image</div>} */}
-        <UploadTest update={updateUpload} ></UploadTest>
+        <UploadTest update={updateUpload} {...coverRef} ></UploadTest>
         <select
           {...backgroundColorRef}
           type="text"

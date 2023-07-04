@@ -11,7 +11,7 @@ function Home() {
   const [highestRating, setHighestRating] = useState([]);
   const [userSearch, setUserSearch] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [allSong, setAllSong] = useState([]);
+  // const [allSong, setAllSong] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,8 +26,8 @@ function Home() {
       const categoriesData = await getSongList("categories");
       setCategories(categoriesData);
 
-      const songsData = await getSongList("songs");
-      setAllSong(songsData);
+      // const songsData = await getSongList("songs");
+      // setAllSong(songsData);
       // const raitingRemix = await getSongList("songs/mostSearch");
       setHighestRating(mostSearchData);
     };
@@ -58,13 +58,13 @@ function Home() {
       {mostSearch.length > 0 && (
         // <ComponentShelf title={"most listeners songs"} items={mostSearch} />
           <>
-          <ComponentShelf title={"Remixes With Highest Rating" } items={highestRating} rate={true} />
+          <ComponentShelf title={"All Remixes Order By Rating" } items={highestRating} rate={true} />
          </>
        
       )}
       {/* <ComponentShelf title={'Bring music to your home'} seeAll ="/vfmkvgkbn" items={items3}/> */}
 
-      <ComponentShelf title={"All Remixes"} items={allSong} />
+      {/* <ComponentShelf title={"All Remixes"} items={allSong} /> */}
     </div>
   );
 }
