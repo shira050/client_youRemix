@@ -1,11 +1,19 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { doApiMethod, API_URL, USER, doApiGet } from "../services/apiService";
 import UploadTest from "../components/uploadTest";
 
 export default function AddCategory() {
+  const imageRef = useRef();
+  const updateUpload = (url)=>{
+    debugger
+    imageRef.value =url;
+    console.log("hii from update")
+    console.log(imageRef.value)
+  }
+
   const colors = [
     { name: "BLUE", num: "#0074D9" },
     { name: "AQUA", num: "#7FDBFF" },
@@ -42,20 +50,20 @@ export default function AddCategory() {
   };
 
   const doAddCategoryForm = async (bodyData) => {
-    let url = API_URL + "categories";
-    console.log(url + bodyData);
+    let url = API_URL + "songs";
     try {
+      debugger;
       console.log("tryyyyyyyy");
       let resp = await doApiMethod(url, "POST", bodyData);
+      alert("category add success");
       console.log(resp.data);
-      alert("Category add success");
-
       nav("/admin/categories");
     } catch (err) {
       console.log(err.response);
       alert("have a problem");
     }
   };
+
 
   return (
     <div className="container">
@@ -74,12 +82,13 @@ export default function AddCategory() {
 
         {/* <input
           {...coverRef}
-          type="text"
+          ref={fileRef}
+          type="file"
           className="form-control m-3"
           placeholder="enter a source for an imge"
         />
         {errors.cover && <div className="text-danger">Enter a valid image</div>} */}
-        <UploadTest url={coverRef} {...coverRef}></UploadTest>
+        <UploadTest update={updateUpload} ></UploadTest>
         <select
           {...backgroundColorRef}
           type="text"

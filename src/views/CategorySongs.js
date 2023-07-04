@@ -6,14 +6,19 @@ import { MDBCardText } from 'mdb-react-ui-kit';
 
 
  function CategorySongs() {
+  //return <h2> vfdu</h2>
     const { _id,name } = useParams();
     console.log(_id);
   const [categorySongs, setCategorySongs] = useState([])
 
-  useEffect(async() => {
+  useEffect(() => {
+    init()
+  },[])
+
+  const init = async () => {
     const songs = await getSongList(`songs/${_id}`);
     setCategorySongs(songs)
-  },[])
+ }
 
     return (
       <div className='grid gap-y-6 pt-6'>

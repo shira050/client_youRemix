@@ -73,7 +73,7 @@ export default function Profile() {
                   ) : (
                     <MDBCardText>didnt make any songs yet...</MDBCardText>
                   )}
-                  <Link to="/playlist">
+                  <Link to="/songs/playlist">
                     <MDBBtn
                       className="m-2"
                       color="success"

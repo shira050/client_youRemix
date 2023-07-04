@@ -9,6 +9,8 @@ import {
   doApiGet,
 } from "../../services/apiService";
 import UploadTest from "../uploadTest";
+import { getSongList } from "../../services/songMetod";
+import { makeSong } from "../../services/apiMakeSong";
 
 export default function AddSong() {
   const [categories, setCategories] = useState([]);
@@ -44,12 +46,15 @@ export default function AddSong() {
 
   const onSubForm = (bodyData) => {
     debugger;
+    console.log("subform");
     console.log(bodyData);
-
     doAddSongForm(bodyData);
   };
 
   const doAddSongForm = async (bodyData) => {
+    // זימון יצירת רמיקס
+    srcRef.value = makeSong();
+
     let url = API_URL + "songs";
     try {
       debugger;
@@ -64,21 +69,23 @@ export default function AddSong() {
     }
   };
 
+  const updateUpload = (url) => {
+    debugger;
+    imageRef.value = url;
+    console.log("hii from update");
+    console.log(imageRef.value);
+  };
+
   const doApiCategories = async () => {
-    let url = API_URL + "categories";
-    try {
-      let resp = await doApiGet(url);
-      setCategories(resp.data);
-      console.log(categories);
-    } catch (err) {
-      console.log(err.response);
-      alert("Categories wrong or service down");
-    }
+    const categories = await getSongList("categories");
+    setCategories(categories);
   };
 
   useEffect(() => {
     doApiCategories();
   }, []);
+
+  console.log(titleRef);
   return (
     <div className="container">
       <h1 className="text-center">Add Song</h1>
@@ -110,13 +117,7 @@ export default function AddSong() {
             <option value={item._id}>{item.title}</option>
           ))}
         </select>
-        <input
-          {...srcRef}
-          type="text"
-          className="form-control m-3"
-          placeholder="enter the source song's route"
-        />
-        {errors.src && <div className="text-danger">Enter a valid src</div>}
+
         {/* <input
           {...imageRef}
           type="text"
@@ -124,9 +125,12 @@ export default function AddSong() {
           placeholder="enter a source for an iamge"
         />
         {errors.image && <div className="text-danger">Enter a valid image</div>} */}
-        <UploadTest url={imageRef}  {...imageRef} ></UploadTest>
+        <UploadTest update={updateUpload}></UploadTest>
 
-        <button  type="submit" className=" mt-3 className='rounded btn btn-success'">
+        <button
+          type="submit"
+          className=" mt-3 className='rounded btn btn-success"
+        >
           Add
         </button>
       </form>
