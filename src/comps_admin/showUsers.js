@@ -60,7 +60,7 @@ export default function ShowUsers() {
     }
   };
 
-  useEffect(async () => {
+  useEffect( () => {
     doApiInfo();
   }, []);
 

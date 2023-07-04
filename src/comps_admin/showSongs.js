@@ -43,7 +43,7 @@ export default function SongsList() {
     }
   };
 
-  useEffect(async () => {
+  useEffect( () => {
     doApiInfo();
   }, []);
 
