@@ -1,6 +1,8 @@
 
 # Spotify Remix Manager
 
+**link to server-https://github.com/shira050/server_youRremix.git**
+
 ## Overview
 Spotify Remix Manager is a web application that allows users to manage their Spotify playlists and create remixes from their favorite songs. The application has an admin interface for managing users and user data. The project is built using React for the frontend, Node.js for the backend, and Python for the AI components that handle the remix generation.
 
